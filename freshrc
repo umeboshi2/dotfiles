@@ -3,3 +3,7 @@ fresh jasoncodes/dotfiles bin/gemdiff --bin=~/bin/gem-diff
 fresh foobacca/dotfiles bash/dircolors
 
 fresh emacs --file
+
+fresh emacs.d --file=~/.emacs.d/
+fresh bashrc --file
+fresh bashrc --file
