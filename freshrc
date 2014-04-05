@@ -14,3 +14,12 @@ fresh bashrc --file
 if [[ "$(hostname -s)" == "pegatron" ]]; then
     fresh pip.conf.cypress --file=~/.pip/pip.conf
 fi
+
+if [ -d ~/.kde/share/apps/konsole ]; then
+    colorschemes="4-s cypress funny golden indian-red khaki orange raspberry"
+    colorschemes="$colorschemes workstation zuki"
+    for cs in $colorschemes; do
+	filepath=~/.kde/share/apps/konsole/$cs.colorscheme
+	fresh konsole/$cs.colorscheme --file=$filepath
+    done
+fi
