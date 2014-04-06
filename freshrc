@@ -1,8 +1,9 @@
 # -*- mode: sh -*-
 
 fresh freshshell/fresh bin/fresh --bin
+
 fresh jasoncodes/dotfiles bin/gemdiff --bin=~/bin/gem-diff
-fresh foobacca/dotfiles bash/dircolors
+#fresh foobacca/dotfiles bash/dircolors
 
 fresh emacs --file
 
