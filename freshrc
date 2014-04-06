@@ -9,7 +9,6 @@ fresh emacs --file
 
 fresh emacs.d --file=~/.emacs.d/
 fresh bashrc --file
-fresh bashrc --file
 
 
 if [[ "$(hostname -s)" == "pegatron" ]]; then
