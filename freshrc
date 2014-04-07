@@ -13,6 +13,12 @@ fresh bashrc --file
 
 if [[ "$(hostname -s)" == "pegatron" ]]; then
     fresh pip.conf.cypress --file=~/.pip/pip.conf
+    # get stuff from cypress
+    cypress_repo=ssh://cypress/freespace/repos/git/dotfiles-umeboshi.git
+    for host in cypress stopgap mybooklive; do
+	fname=autostart/gkrellm-$host.desktop
+	fresh $cypress_repo gkrellm/$fname --file=~/.config/$fname
+    done
 fi
 
 if [ -d ~/.kde/share/apps/konsole ]; then
@@ -23,3 +29,4 @@ if [ -d ~/.kde/share/apps/konsole ]; then
 	fresh konsole/$cs.colorscheme --file=$filepath
     done
 fi
+
