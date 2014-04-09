@@ -20,6 +20,11 @@ if [[ "$(hostname -s)" == "pegatron" ]]; then
 	fname=autostart/gkrellm-$host.desktop
 	fresh $cypress_repo gkrellm/$fname --file=~/.config/$fname
     done
+    konsolepath=~/.kde/share/apps/konsole
+    for profile in bard cypress gobo justice labrat paperboy raspberry zuki; do
+	fname=$profile.profile
+	fresh $cypress_repo konsole-pegatron/$fname --file=$konsolepath/$fname
+    done
 fi
 
 if [ -d ~/.kde/share/apps/konsole ]; then
