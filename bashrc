@@ -115,11 +115,6 @@ if [ -x /usr/games/fortune ]; then
 	fortune
 fi
 
-# setup dircolors if available
-if [ -f ~/.dircolors ]; then
-	source ~/.dircolors
-fi
-
 # add ~/bin to PATH
 if [ -d ~/bin ]; then
 	export PATH=~/bin:$PATH
