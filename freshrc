@@ -19,6 +19,7 @@ fresh xxdiffrc --file
 
 if [[ "$(hostname -s)" == "pegatron" ]]; then
     fresh pip.conf.cypress --file=~/.pip/pip.conf
+    fresh pydistutils.cfg.cypress --file=~/.pydistutils.cfg
     # get stuff from cypress
     cypress_repo=ssh://cypress/freespace/repos/git/dotfiles-umeboshi.git
     for host in cypress stopgap mybooklive; do
