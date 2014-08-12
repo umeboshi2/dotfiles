@@ -1,0 +1,7 @@
+[user]
+	email = joseph.rawson.works@littledebian.org
+	name = Joseph Rawson
+[diff]
+	tool = xxdiff
+[difftool]
+	prompt = false
