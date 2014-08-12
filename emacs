@@ -54,6 +54,10 @@
 (autoload 'page-mode "page-mode" "Page-oriented display and editing" t)
 
 (autoload 'coffee-mode "coffee-mode" "CoffeeScript mode" t)
+(require 'coffee-mode)
+;; '(coffee-tab-width 2)
+(set-variable 'coffee-tab-width 2)
+(add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
 
 
 ;; jade-mode
