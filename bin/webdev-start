@@ -1,0 +1,3 @@
+#!/bin/bash
+schroot --begin-session --session-name=webdev -p -c webdev
+
