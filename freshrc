@@ -17,6 +17,7 @@ fresh bashrc --file
 fresh xxdiffrc --file
 fresh gitconfig --file
 
+fresh bin/resize-images-for-phone --bin
 
 if [[ "$(hostname -s)" == "pegatron" ]]; then
     fresh pip.conf.cypress --file=~/.pip/pip.conf
