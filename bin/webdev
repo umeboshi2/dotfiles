@@ -1,3 +1,4 @@
 #!/bin/bash
-schroot --run-session --session-name=webdev
+schroot --run-session -c session:webdev
+
 

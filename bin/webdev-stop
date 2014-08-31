@@ -1,4 +1,4 @@
 #!/bin/bash
-schroot --end-session --session-name=webdev
+schroot --end-session -c session:webdev
 
 
