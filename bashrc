@@ -132,6 +132,9 @@ if [ -d ~/node_modules ]; then
     export PATH=./node_modules/.bin:$PATH
 fi
 
+if [ -d ~/.evm/bin ]; then
+    export PATH=~/.evm/bin:$PATH
+fi
 # setup gems if directory exists
 if [ -d ~/local/gems ]; then
     export GEM_HOME=~/local/gems

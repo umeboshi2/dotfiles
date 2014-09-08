@@ -12,7 +12,14 @@ fresh dircolors --file
 
 fresh emacs --file
 
-fresh emacs.d --file=~/.emacs.d/
+elpackage_path=~/.emacs.d/packages
+for elp in json-mode.el json-reformat.el mmm-mako.el ; do
+    fresh emacs.d/packages/$elp --file=$elpackage_path/$elp
+done
+
+fresh defunkt/coffee-mode coffee-mode.el --file=$elpackage_path/coffee-mode.el
+
+#fresh emacs.d --file=~/.emacs.d/
 fresh bashrc --file
 fresh xxdiffrc --file
 fresh gitconfig --file
