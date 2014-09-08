@@ -1,9 +1,17 @@
+;; add .emacs.d/packages to load-path
+(add-to-list 'load-path "~/.emacs.d/packages/")
+
+;; use debian-startup.el
+(load "debian-startup")
+(setq dotfiles-dir (file-name-directory (or load-file-name (buffer-file-name))))
+(let ((user-site-start-dir (concat dotfiles-dir "/.emacs.d/site-start.d")))
+    (debian-run-directories user-site-start-dir))
+
 (custom-set-variables
  '(line-number-mode t)
  '(load-home-init-file t t)
  '(python-mode-hook (quote (imenu-add-menubar-index)) t)
  '(show-paren-style (quote expression)))
- '(coffee-tab-width 2)
 (custom-set-faces
  '(default ((t (:inherit nil :stipple nil :background "#404040" :foreground "#e1e1e1" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 90 :width normal :foundry "bitstream" :family "Bitstream Vera Sans"))) t)
  '(font-lock-builtin-face ((((class color) (min-colors 88) (background dark)) (:foreground "gold"))))
@@ -21,6 +29,12 @@
 
 (setq frame-background-mode (quote dark))
 
+;; default size: By default the initial frame seem
+;; to be larger than additional frames/
+(add-to-list 'initial-frame-alist '(width . 81))
+(add-to-list 'initial-frame-alist '(height . 36))
+(add-to-list 'default-frame-alist '(width . 81))
+(add-to-list 'default-frame-alist '(height . 39))
 
 
 ;; paella template tag keybinding
@@ -48,8 +62,6 @@
 ;; start show-paren-mode
 (show-paren-mode)
 
-;; add .emacs.d/packages to load-path
-(add-to-list 'load-path "~/.emacs.d/packages/")
 
 (autoload 'page-mode "page-mode" "Page-oriented display and editing" t)
 
