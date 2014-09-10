@@ -17,9 +17,16 @@ for elp in json-mode.el json-reformat.el mmm-mako.el debian-startup.el; do
     fresh emacs.d/packages/$elp --file=$elpackage_path/$elp
 done
 
-fresh defunkt/coffee-mode coffee-mode.el --file=$elpackage_path/coffee-mode.el
-fresh defunkt/markdown-mode markdown-mode.el --file=$elpackage_path/markdown-mode.el
-fresh antonj/scss-mode scss-mode.el --file=$elpackage_path/scss-mode.el
+mode=coffee-mode
+fresh defunkt/$mode $mode.el --file=$elpackage_path/$mode.el
+mode=markdown-mode
+fresh defunkt/$mode $mode.el --file=$elpackage_path/$mode.el
+mode=scss-mode
+fresh antonj/$mode $mode.el --file=$elpackage_path/$mode.el
+mode=yaml-mode
+fresh yoshiki/$mode $mode.el --file=$elpackage_path/$mode.el
+
+
 
 fresh umeboshi2/emacs-goodies-el emacs.d/site-start.d --file=~/.emacs.d/site-start.d/
 fresh umeboshi2/emacs-goodies-el emacs.d/site-lisp --file=~/.emacs.d/site-lisp/
