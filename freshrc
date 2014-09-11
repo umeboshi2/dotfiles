@@ -68,3 +68,9 @@ if [ -d ~/.kde/share/apps/konsole ]; then
     done
 fi
 
+
+xfconf=~/.config/xfce4/xfconf
+perchannel=$xfconf/xfce-perchannel-xml
+
+fresh xfce4/xfce4-keyboard-shortcuts.xml --file=$perchannel/xfce4-keyboard-shortcuts.xml
+
