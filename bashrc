@@ -127,7 +127,6 @@ fi
 
 # setup nodejs if directory exists
 if [ -d ~/node_modules ]; then
-    #export GEM_HOME=~/local/gems
     export PATH=~/node_modules/.bin:$PATH
     export PATH=./node_modules/.bin:$PATH
 fi
@@ -136,9 +135,12 @@ if [ -d ~/.evm/bin ]; then
     export PATH=~/.evm/bin:$PATH
 fi
 # setup gems if directory exists
+#if [ -d ~/local/gems -a -z $SCHROOT_USER ]; then
 if [ -d ~/local/gems ]; then
-    export GEM_HOME=~/local/gems
-    export PATH=~/local/gems/bin:$PATH
+    if [ -z $SCHROOT_USER ]; then
+	export GEM_HOME=~/local/gems
+	export PATH=~/local/gems/bin:$PATH
+    fi
 fi
 
 export EDITOR=/usr/local/bin/editor
