@@ -10,7 +10,11 @@ fresh jasoncodes/dotfiles bin/gemdiff --bin=~/bin/gem-diff
 
 fresh dircolors --file
 
-fresh emacs --file
+if [[ "$(hostname -s)" == "tron" ]]; then
+    fresh emacs.tron --file=~/.emacs
+else
+    fresh emacs --file
+fi
 
 elpackage_path=~/.emacs.d/packages
 for elp in json-mode.el json-reformat.el mmm-mako.el debian-startup.el; do
@@ -74,3 +78,4 @@ perchannel=$xfconf/xfce-perchannel-xml
 
 fresh xfce4/xfce4-keyboard-shortcuts.xml --file=$perchannel/xfce4-keyboard-shortcuts.xml
 
+fresh virtualenvs/postmkvirtualenv --file=~/.virtualenvs/postmkvirtualenv

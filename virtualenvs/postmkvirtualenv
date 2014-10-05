@@ -20,27 +20,11 @@ do
     ln -s $LIB_SYSTEM_PATH/$LIB $LIB_VIRTUALENV_PATH/$LIB 
 done
 
-# workaround for odd problem installing pastescript first
-for p in Paste-1.7.5.1.tar.gz PasteDeploy-1.5.0.tar.gz PasteScript-1.7.5.tar.gz; do
-    pip install http://cypress/python/$p
-done
+echo "upgrading pip"
+pip install --upgrade pip
 
-#for p in pip-1.4.1.tar.gz setuptools-1.1.6.tar.gz distribute-0.7.3.zip ;
-#do
-#    pip install http://cypress/python/$p
-#done
+echo "upgrading setuptools"
+pip install --upgrade setuptools
 
-pip install http://cypress/python/pip-1.4.1.tar.gz
-
-pip install http://cypress/python/setuptools-1.1.6.tar.gz
-pip install --no-index -f http://cypress/python http://cypress/python/distribute-0.7.3.zip
-
-#pip install --no-index -f http://cypress/python/webapp http://cypress/python/webapp/pyramid_deform-0.2a5.tar.gz
-
-#pip install --no-index -f http://cypress/python/webapp http://cypress/python/webapp/vobject-0.8.1c.tar.gz
-
-#pip install --no-index -f http://cypress/python/webapp http://cypress/python/webapp/fanstatic-1.0a2.zip
-
-#pip install --no-index -f http://cypress/python/webapp http://cypress/python/webapp/trumpet-0.1.1dev.zip
-
-
+echo "installing wheel"
+pip install wheel
