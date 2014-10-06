@@ -79,3 +79,6 @@ perchannel=$xfconf/xfce-perchannel-xml
 fresh xfce4/xfce4-keyboard-shortcuts.xml --file=$perchannel/xfce4-keyboard-shortcuts.xml
 
 fresh virtualenvs/postmkvirtualenv --file=~/.virtualenvs/postmkvirtualenv
+fresh virtualenvs/postactivate --file=~/.virtualenvs/postactivate
+fresh virtualenvs/predeactivate --file=~/.virtualenvs/predeactivate
+

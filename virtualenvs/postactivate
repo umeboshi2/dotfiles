@@ -1,0 +1,8 @@
+#!/bin/bash
+# This hook is run after every virtualenv is activated.
+export WHEELPATH=~/.virtualenvs/wheelhouse
+
+alias pipwheel="pip install --use-wheel --no-index --find-links=$WHEELPATH"
+alias mkwheel="pip wheel --wheel-dir=$WHEELPATH"
+
+
