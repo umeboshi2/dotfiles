@@ -2,6 +2,6 @@
 # This hook is run before every virtualenv is deactivated.
 
 unset WHEELPATH
-unset pipwheel
-unset mkwheel
+unalias pipwheel
+unalias mkwheel
 
