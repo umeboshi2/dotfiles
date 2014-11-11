@@ -1,3 +1,5 @@
+;; -*- mode: emacs-lisp -*-
+
 ;; add .emacs.d/packages to load-path
 (add-to-list 'load-path "~/.emacs.d/packages/")
 
@@ -78,6 +80,8 @@
 
 (autoload 'markdown-mode "markdown-mode")
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
+
+(require 'yaml-mode)
 
 ;; jade-mode
 ;;(require 'sws-mode)

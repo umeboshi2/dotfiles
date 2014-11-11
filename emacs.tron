@@ -83,6 +83,8 @@
 (autoload 'markdown-mode "markdown-mode")
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 
+(require 'yaml-mode)
+
 ;; jade-mode
 ;;(require 'sws-mode)
 ;;(require 'jade-mode)    
