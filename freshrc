@@ -35,7 +35,11 @@ fresh yoshiki/$mode $mode.el --file=$elpackage_path/$mode.el
 fresh umeboshi2/emacs-goodies-el emacs.d/site-start.d --file=~/.emacs.d/site-start.d/
 fresh umeboshi2/emacs-goodies-el emacs.d/site-lisp --file=~/.emacs.d/site-lisp/
 
-
+# get evm
+#$ curl -fsSkL https://raw.github.com/rejeep/evm/master/go | bash
+if [ -d ~/.evm ]; then
+    fresh emacs_daemon.desktop --file=~/.config/autostart/emacs_daemon.desktop
+fi
 
 #fresh emacs.d --file=~/.emacs.d/
 fresh bashrc --file

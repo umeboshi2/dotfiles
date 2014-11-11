@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=0.9.4
+Type=Application
+Name=emacs_daemon
+Comment=Emacs daemon mode
+Exec=~/.evm/bin/emacs --daemon
+StartupNotify=false
+Terminal=false
+Hidden=false
