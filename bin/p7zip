@@ -1,0 +1,15 @@
+#!/bin/bash
+# This is a wrapper for 7z that compresses with the 
+# highest compression ratio.
+
+# to tar a directory, do:
+#   tar cv dir | p7zip a -si tarball.tar.7z
+# to extract the tar, do:
+#   p7zip x -so tarball.tar.7z | tar xv
+# to create standard archive, do:
+#   p7zip a dir.7z dir/
+OPTS="-t7z -mx=9 -md=128m -ms=on -mmt=3"
+#OPTS="-t7z -mx=9 -md=256m -ms=on -mmt=4"
+CMD="$1"
+shift 1
+7z $CMD $OPTS "$@"

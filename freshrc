@@ -52,6 +52,7 @@ fresh bin/resize-images-for-phone --bin
 fresh bin/webdev --bin
 fresh bin/webdev-start --bin
 fresh bin/webdev-stop --bin
+fresh bin/p7zip --bin
 
 if [[ "$(hostname -s)" == "pegatron" ]]; then
     fresh pip.conf.cypress --file=~/.pip/pip.conf
