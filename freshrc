@@ -46,6 +46,8 @@ fresh bashrc --file
 fresh xxdiffrc --file
 fresh gitconfig --file
 
+fresh garglkrc --file
+
 fresh bin/resize-images-for-phone --bin
 fresh bin/webdev --bin
 fresh bin/webdev-start --bin
