@@ -1,0 +1,3 @@
+#!/bin/bash
+WGET_OPTS="--no-parent --mirror --convert-links --recursive --page-requisites"
+wget $WGET_OPTS $1

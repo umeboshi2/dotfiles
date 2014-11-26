@@ -48,11 +48,15 @@ fresh gitconfig --file
 
 fresh garglkrc --file
 
-fresh bin/resize-images-for-phone --bin
-fresh bin/webdev --bin
-fresh bin/webdev-start --bin
-fresh bin/webdev-stop --bin
-fresh bin/p7zip --bin
+for binfile in `ls ~/.dotfiles/bin | grep -v ~$` ; do
+    fresh bin/$binfile --bin
+done
+
+#fresh bin/resize-images-for-phone --bin
+#fresh bin/webdev --bin
+#fresh bin/webdev-start --bin
+#fresh bin/webdev-stop --bin
+#fresh bin/p7zip --bin
 
 if [[ "$(hostname -s)" == "pegatron" ]]; then
     fresh pip.conf.cypress --file=~/.pip/pip.conf
@@ -80,11 +84,14 @@ if [ -d ~/.kde/share/apps/konsole ]; then
 fi
 
 
+# should we use fresh to manage these configs,
+# or create a script that will maintain a configured state
+# yet allow for mods from desktop manager?
 xfconf=~/.config/xfce4/xfconf
 perchannel=$xfconf/xfce-perchannel-xml
-
 fresh xfce4/xfce4-keyboard-shortcuts.xml --file=$perchannel/xfce4-keyboard-shortcuts.xml
 
+# hooks for virtualenvwrapper
 fresh virtualenvs/postmkvirtualenv --file=~/.virtualenvs/postmkvirtualenv
 fresh virtualenvs/postactivate --file=~/.virtualenvs/postactivate
 fresh virtualenvs/predeactivate --file=~/.virtualenvs/predeactivate
