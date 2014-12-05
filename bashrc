@@ -1,3 +1,4 @@
+# -*- mode: sh -*-
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -126,6 +127,17 @@ fi
 if [ -d ~/local/python ]; then
     export PYTHONPATH=~/local/python:$PYTHONPATH
 fi
+
+# setup rbenv if exists
+if [ -d ~/.rbenv ]; then
+    export PATH=~/.rbenv/bin:$PATH
+    eval "$(rbenv init -)"
+fi
+
+# git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+# git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+# sudo aptitude install git zsh libssl-dev zlib1g-dev libreadline-dev libyaml-dev
+# apt-get install autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev
 
 # setup nodejs if directory exists
 if [ -d ~/node_modules ]; then
