@@ -112,17 +112,19 @@ fi
 
 # add fortunes
 if [ -x /usr/games/fortune ]; then
-	fortune
+    echo "==================================================================="
+    fortune
+    echo "==================================================================="
 fi
 
 # add ~/bin to PATH
 if [ -d ~/bin ]; then
-	export PATH=~/bin:$PATH
+    export PATH=~/bin:$PATH
 fi
 
 # add ~/local/python to PYTHONPATH
 if [ -d ~/local/python ]; then
-	export PYTHONPATH=~/local/python:$PYTHONPATH
+    export PYTHONPATH=~/local/python:$PYTHONPATH
 fi
 
 # setup nodejs if directory exists
@@ -147,5 +149,6 @@ export EDITOR=/usr/local/bin/editor
 
 eval `keychain --eval id_rsa id_dsa`
 
-
-source ~/.fresh/build/shell.sh
+if [ -r ~/.fresh/build/shell.sh ]; then
+    source ~/.fresh/build/shell.sh
+fi
