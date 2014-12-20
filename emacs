@@ -73,18 +73,14 @@
 (set-variable 'coffee-tab-width 2)
 (add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
 
-(require 'magit)
 
 (autoload 'scss-mode "scss-mode")
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
 
-(autoload 'markdown-mode "markdown-mode")
+(autoload 'markdown-mode "markdown-mode" "MarkDown Mode" t)
+(require 'markdown-mode)
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 
 (require 'yaml-mode)
 
-;; jade-mode
-;;(require 'sws-mode)
-;;(require 'jade-mode)    
-;;(add-to-list 'auto-mode-alist '("\\.styl$" . sws-mode))
-;;(add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
+;;(require 'magit)
