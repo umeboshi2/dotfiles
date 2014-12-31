@@ -99,6 +99,7 @@ fresh virtualenvs/predeactivate --file=~/.virtualenvs/predeactivate
 if ! [ -d ~/.rbenv ]; then
     git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
     git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+    . .bashrc
     rbenv install 2.1.5
 fi
 
