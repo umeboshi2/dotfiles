@@ -82,5 +82,6 @@
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 
 (require 'yaml-mode)
+(require 'jinja2-mode)
 
 ;;(require 'magit)

@@ -38,6 +38,8 @@ mode=scss-mode
 fresh antonj/$mode $mode.el --file=$elpackage_path/$mode.el
 mode=yaml-mode
 fresh yoshiki/$mode $mode.el --file=$elpackage_path/$mode.el
+mode=jinja2-mode
+fresh paradoxxxzero/$mode $mode.el --file=$elpackage_path/$mode.el
 
 
 
