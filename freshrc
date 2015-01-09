@@ -55,7 +55,10 @@ fi
 #fresh emacs.d --file=~/.emacs.d/
 fresh bashrc --file
 fresh xxdiffrc --file
-fresh gitconfig --file
+# FIXME upgrade tron
+if [[ "$(hostname -s)" != "tron" ]]; then
+    fresh gitconfig --file
+fi
 
 fresh garglkrc --file
 
