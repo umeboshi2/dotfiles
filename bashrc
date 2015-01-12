@@ -13,7 +13,11 @@ export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
 export HISTCONTROL=ignoreboth
 
 # history file based on tty
-export HISTFILE=~/.bash_history-`tty | python -c 'import sys ; d = sys.stdin.read().replace("/", "_") ; sys.stdout.write(d)'`
+export HISTFILE=~/.bash_histories`tty`
+if ! [ -d `dirname ${HISTFILE}` ]; then
+    echo "Creating directory for ${HISTFILE}"
+    mkdir -p `dirname ${HISTFILE}`
+fi
 
 
 # append to the history file, don't overwrite it

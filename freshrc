@@ -1,5 +1,14 @@
 # -*- mode: sh -*-
 
+# clean up files from skel
+for filename in .bashrc .dircolors; do
+    if ! [ -L ~/$filename ] && [ -f ~/$filename ]; then
+	echo "Creating backup of ~/$filename"
+	mv ~/$filename ~/$filename.bak
+    fi
+done
+
+
 fresh freshshell/fresh bin/fresh --bin
 
 fresh jasoncodes/dotfiles bin/gemdiff --bin=~/bin/gem-diff
@@ -29,6 +38,8 @@ mode=scss-mode
 fresh antonj/$mode $mode.el --file=$elpackage_path/$mode.el
 mode=yaml-mode
 fresh yoshiki/$mode $mode.el --file=$elpackage_path/$mode.el
+mode=jinja2-mode
+fresh paradoxxxzero/$mode $mode.el --file=$elpackage_path/$mode.el
 
 
 
@@ -44,7 +55,10 @@ fi
 #fresh emacs.d --file=~/.emacs.d/
 fresh bashrc --file
 fresh xxdiffrc --file
-fresh gitconfig --file
+# FIXME upgrade tron
+if [[ "$(hostname -s)" != "tron" ]]; then
+    fresh gitconfig --file
+fi
 
 fresh garglkrc --file
 
@@ -100,3 +114,11 @@ fresh virtualenvs/postmkvirtualenv --file=~/.virtualenvs/postmkvirtualenv
 fresh virtualenvs/postactivate --file=~/.virtualenvs/postactivate
 fresh virtualenvs/predeactivate --file=~/.virtualenvs/predeactivate
 
+if ! [ -d ~/.rbenv ]; then
+    git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+    git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+    . .bashrc
+    rbenv install 2.1.5
+fi
+
+# FIXME
