@@ -69,6 +69,7 @@ done
 #fresh bin/webdev-stop --bin
 #fresh bin/p7zip --bin
 
+if false ; then
 #http://stackoverflow.com/questions/8063228/how-do-i-check-if-a-variable-exists-in-a-list-in-bash
 forest_hosts="pegatron gazebo"
 #if [[ "$(hostname -s)" == "pegatron" ]]; then
@@ -97,7 +98,7 @@ if [ -d ~/.kde/share/apps/konsole ]; then
 	fresh konsole/$cs.colorscheme --file=$filepath
     done
 fi
-
+fi
 
 # should we use fresh to manage these configs,
 # or create a script that will maintain a configured state
