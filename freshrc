@@ -69,6 +69,13 @@ done
 #fresh bin/webdev-stop --bin
 #fresh bin/p7zip --bin
 
+forest_hosts="pegatron gazebo"
+if [[ $forest_hosts =~ "$(hostname -s)" ]]; then
+    echo "This is a forest machine"
+    fresh pip.conf.cypress --file=~/.pip/pip.conf
+    fresh pydistutils.cfg.cypress --file=~/.pydistutils.cfg
+fi
+
 if false ; then
 #http://stackoverflow.com/questions/8063228/how-do-i-check-if-a-variable-exists-in-a-list-in-bash
 forest_hosts="pegatron gazebo"
