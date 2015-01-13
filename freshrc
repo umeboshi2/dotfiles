@@ -69,7 +69,7 @@ done
 #fresh bin/webdev-stop --bin
 #fresh bin/p7zip --bin
 
-forest_hosts="pegatron gazebo"
+forest_hosts="pegatron gazebo cypress"
 if [[ $forest_hosts =~ "$(hostname -s)" ]]; then
     echo "This is a forest machine"
     fresh pip.conf.cypress --file=~/.pip/pip.conf
