@@ -3,6 +3,11 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+# add ~/bin to PATH
+if [ -d ~/bin ]; then
+    export PATH=~/bin:$PATH
+fi
+
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
@@ -120,11 +125,6 @@ if [ -x /usr/games/fortune ]; then
     echo "==================================================================="
     fortune
     echo "==================================================================="
-fi
-
-# add ~/bin to PATH
-if [ -d ~/bin ]; then
-    export PATH=~/bin:$PATH
 fi
 
 # add ~/local/python to PYTHONPATH
