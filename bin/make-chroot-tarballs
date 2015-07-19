@@ -1,0 +1,90 @@
+#!/usr/bin/env python
+import os, sys
+import hashlib
+
+import subprocess
+
+
+#from useless.base.path import path
+from unipath.path import Path as path
+
+def check_root():
+    if os.getuid():
+        raise RuntimeError, "Must be root"
+
+def _basedirname(suite, arch):
+    basedirname = suite
+    if arch == 'i386':
+        basedirname = '%s32' % suite
+    return basedirname
+
+def _tarname(suite, arch):
+    basedirname = _basedirname(suite, arch)
+    return '%s.tar.xz' % basedirname
+
+def debootstrap(suite, arch, repo):
+    basedirname = _basedirname(suite, arch)
+    cmd = ['debootstrap']
+    if suite in NOGPG_SUITES:
+        cmd.append('--no-check-gpg')
+    cmd += ['--arch=%s' % arch, suite, basedirname, repo]
+    subprocess.check_call(cmd)
+    debpath = os.path.join(PARENT_DIRECTORY, basedirname, 'var/cache/apt/archives')
+    for filename in os.listdir(debpath):
+        if filename.endswith('.deb'):
+            fullname = os.path.join(debpath, filename)
+            os.remove(fullname)
+            print "Removed", filename
+    tarfile = os.path.join(TARBALL_DIRECTORY, _tarname(suite, arch))
+    with file(tarfile, 'w') as outfile:
+        tarcmd = ['tar', 'c', basedirname]
+        xzcmd = ['xz']
+        tarproc = subprocess.Popen(tarcmd, stdout=subprocess.PIPE)
+        xzproc = subprocess.Popen(xzcmd, stdin=tarproc.stdout, stdout=outfile)
+        xzproc.wait()
+        
+            
+    
+def debootstrap_suite(suite):
+    if suite in ARCHIVE_SUITES:
+        repo = ARCHIVE_REPO
+    elif suite in CURRENT_SUITES:
+        repo = CURRENT_REPO
+    else:
+        raise RuntimeError, "Can't handle suite %s" % suite
+    arches = ['i386', 'amd64']
+    if suite in I386_SUITES:
+        arches = ['i386']
+    for arch in arches:
+        tarfile = os.path.join(TARBALL_DIRECTORY, _tarname(suite, arch))
+        if not os.path.isfile(tarfile):
+            print 50*'='
+            print "Bootstrapping %s(%s)" % (suite, arch)
+            print 50*'='
+            debootstrap(suite, arch, repo)
+        
+    
+def main():
+    for suite in ARCHIVE_SUITES + CURRENT_SUITES:
+        debootstrap_suite(suite)
+        
+
+ARCHIVE_SUITES = ['woody', 'sarge', 'etch', 'lenny']
+NOGPG_SUITES = ['etch']
+CURRENT_SUITES  = ['squeeze', 'wheezy', 'jessie', 'stretch']
+I386_SUITES = ['woody', 'sarge']
+
+ARCHIVE_REPO = 'http://archive.debian.org/debian'
+CURRENT_REPO = 'http://ftp.us.debian.org/debian'
+
+PARENT_DIRECTORY = '/freespace/roots'
+TARBALL_DIRECTORY = os.path.join(PARENT_DIRECTORY, 'tarballs')
+
+
+
+if __name__ == '__main__':
+    main()
+    
+    
+    
+    
