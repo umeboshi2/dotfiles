@@ -115,7 +115,7 @@ gfont 10      monor           # User2
 
 gamma         1.0             # this only affects text rendering, not other colors
 
-caretshape    2               # 0=smalldot 1=fatdot 2=thinline 3=fatline 4=block
+caretshape    3               # 0=smalldot 1=fatdot 2=thinline 3=fatline 4=block
 linkstyle     1               # 1=show hyperlinks 0=hide hyperlinks
 
 # moreprompt  ( more )
@@ -124,13 +124,14 @@ linkstyle     1               # 1=show hyperlinks 0=hide hyperlinks
 
 windowcolor   000000          # overall window background color
 bordercolor   000000          # border line color
-caretcolor    000000          # input caret color
+caretcolor    007000          # input caret color
 linkcolor     000060          # hyperlink color
 morecolor     006000          # more prompt color
 
 # Colors for text buffer windows
-tcolor  0     00ff00  000000  # Normal
-tcolor  1     ffff0000  000000  # Emphasized
+#tcolor  0     00ff00  000000  # Normal
+tcolor  0     ffdd22  000000  # Normal
+tcolor  1     ff0000  000000  # Emphasized
 tcolor  2     00eebb  000000  # Preformatted
 tcolor  3     ffff00  000000  # Header
 tcolor  4     ffff00  000000  # Subheader

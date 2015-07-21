@@ -22,6 +22,38 @@ def _tarname(suite, arch):
     basedirname = _basedirname(suite, arch)
     return '%s.tar.xz' % basedirname
 
+def make_tarball(suite, arch):
+    basedirname = _basedirname(suite, arch)
+    tarfile = os.path.join(TARBALL_DIRECTORY, _tarname(suite, arch))
+    with file(tarfile, 'w') as outfile:
+        tarcmd = ['tar', 'c', basedirname]
+        xzcmd = ['xz']
+        tarproc = subprocess.Popen(tarcmd, stdout=subprocess.PIPE)
+        xzproc = subprocess.Popen(xzcmd, stdin=tarproc.stdout, stdout=outfile)
+        xzproc.wait()
+
+def make_schroot_stanza(suite, arch):
+    basedirname = _basedirname(suite, arch)
+    chroot_directory = os.path.join(PARENT_DIRECTORY, basedirname)
+    lines = list()
+    lines.append('[%s]' % basedirname)
+    lines.append('type=directory')
+    lines.append('directory=%s' % chroot_directory)
+    lines.append('users=%s' % ','.join(SCHROOT_USERS))
+    lines.append('root-users=%s' % ','.join(SCHROOT_ROOT_USERS))
+    lines = (line + '\n' for line in lines)
+    return lines
+
+def make_schroot_conf(suite, arch):
+    basedirname = _basedirname(suite, arch)
+    confname = os.path.join(SCHROOT_CONF_PATH, basedirname)
+    if not os.path.isfile(confname):
+        print "Creating %s" % confname
+        with file(confname, 'w') as outfile:
+            stanza = make_schroot_stanza(suite, arch)
+            outfile.writelines(stanza)
+            
+    
 def debootstrap(suite, arch, repo):
     basedirname = _basedirname(suite, arch)
     cmd = ['debootstrap']
@@ -35,14 +67,9 @@ def debootstrap(suite, arch, repo):
             fullname = os.path.join(debpath, filename)
             os.remove(fullname)
             print "Removed", filename
-    tarfile = os.path.join(TARBALL_DIRECTORY, _tarname(suite, arch))
-    with file(tarfile, 'w') as outfile:
-        tarcmd = ['tar', 'c', basedirname]
-        xzcmd = ['xz']
-        tarproc = subprocess.Popen(tarcmd, stdout=subprocess.PIPE)
-        xzproc = subprocess.Popen(xzcmd, stdin=tarproc.stdout, stdout=outfile)
-        xzproc.wait()
-        
+    make_tarball(suite, arch)
+    make_schroot_conf(suite, arch)
+    
             
     
 def debootstrap_suite(suite):
@@ -62,11 +89,15 @@ def debootstrap_suite(suite):
             print "Bootstrapping %s(%s)" % (suite, arch)
             print 50*'='
             debootstrap(suite, arch, repo)
-        
     
 def main():
+    if not os.path.isdir(TARBALL_DIRECTORY):
+        os.makedirs(TARBALL_DIRECTORY)
+    here = os.getcwd()
+    os.chdir(PARENT_DIRECTORY)
     for suite in ARCHIVE_SUITES + CURRENT_SUITES:
         debootstrap_suite(suite)
+    os.chdir(here)
         
 
 ARCHIVE_SUITES = ['woody', 'sarge', 'etch', 'lenny']
@@ -78,8 +109,11 @@ ARCHIVE_REPO = 'http://archive.debian.org/debian'
 CURRENT_REPO = 'http://ftp.us.debian.org/debian'
 
 PARENT_DIRECTORY = '/freespace/roots'
-TARBALL_DIRECTORY = os.path.join(PARENT_DIRECTORY, 'tarballs')
+TARBALL_DIRECTORY = os.path.join(PARENT_DIRECTORY, 'tarballs/base')
 
+SCHROOT_USERS = ['umeboshi']
+SCHROOT_ROOT_USERS = ['umeboshi']
+SCHROOT_CONF_PATH = '/etc/schroot/chroot.d'
 
 
 if __name__ == '__main__':
