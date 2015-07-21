@@ -1,0 +1,124 @@
+#!/usr/bin/env python
+import os, sys
+import hashlib
+
+import subprocess
+
+
+#from useless.base.path import path
+from unipath.path import Path as path
+
+def check_root():
+    if os.getuid():
+        raise RuntimeError, "Must be root"
+
+def _basedirname(suite, arch):
+    basedirname = suite
+    if arch == 'i386':
+        basedirname = '%s32' % suite
+    return basedirname
+
+def _tarname(suite, arch):
+    basedirname = _basedirname(suite, arch)
+    return '%s.tar.xz' % basedirname
+
+def make_tarball(suite, arch):
+    basedirname = _basedirname(suite, arch)
+    tarfile = os.path.join(TARBALL_DIRECTORY, _tarname(suite, arch))
+    with file(tarfile, 'w') as outfile:
+        tarcmd = ['tar', 'c', basedirname]
+        xzcmd = ['xz']
+        tarproc = subprocess.Popen(tarcmd, stdout=subprocess.PIPE)
+        xzproc = subprocess.Popen(xzcmd, stdin=tarproc.stdout, stdout=outfile)
+        xzproc.wait()
+
+def make_schroot_stanza(suite, arch):
+    basedirname = _basedirname(suite, arch)
+    chroot_directory = os.path.join(PARENT_DIRECTORY, basedirname)
+    lines = list()
+    lines.append('[%s]' % basedirname)
+    lines.append('type=directory')
+    lines.append('directory=%s' % chroot_directory)
+    lines.append('users=%s' % ','.join(SCHROOT_USERS))
+    lines.append('root-users=%s' % ','.join(SCHROOT_ROOT_USERS))
+    lines = (line + '\n' for line in lines)
+    return lines
+
+def make_schroot_conf(suite, arch):
+    basedirname = _basedirname(suite, arch)
+    confname = os.path.join(SCHROOT_CONF_PATH, basedirname)
+    if not os.path.isfile(confname):
+        print "Creating %s" % confname
+        with file(confname, 'w') as outfile:
+            stanza = make_schroot_stanza(suite, arch)
+            outfile.writelines(stanza)
+            
+    
+def debootstrap(suite, arch, repo):
+    basedirname = _basedirname(suite, arch)
+    cmd = ['debootstrap']
+    if suite in NOGPG_SUITES:
+        cmd.append('--no-check-gpg')
+    cmd += ['--arch=%s' % arch, suite, basedirname, repo]
+    subprocess.check_call(cmd)
+    debpath = os.path.join(PARENT_DIRECTORY, basedirname, 'var/cache/apt/archives')
+    for filename in os.listdir(debpath):
+        if filename.endswith('.deb'):
+            fullname = os.path.join(debpath, filename)
+            os.remove(fullname)
+            print "Removed", filename
+    make_tarball(suite, arch)
+    make_schroot_conf(suite, arch)
+    
+            
+    
+def debootstrap_suite(suite):
+    if suite in ARCHIVE_SUITES:
+        repo = ARCHIVE_REPO
+    elif suite in CURRENT_SUITES:
+        repo = CURRENT_REPO
+    else:
+        raise RuntimeError, "Can't handle suite %s" % suite
+    arches = ['i386', 'amd64']
+    if suite in I386_SUITES:
+        arches = ['i386']
+    for arch in arches:
+        tarfile = os.path.join(TARBALL_DIRECTORY, _tarname(suite, arch))
+        if not os.path.isfile(tarfile):
+            print 50*'='
+            print "Bootstrapping %s(%s)" % (suite, arch)
+            print 50*'='
+            debootstrap(suite, arch, repo)
+    
+def main():
+    if not os.path.isdir(TARBALL_DIRECTORY):
+        os.makedirs(TARBALL_DIRECTORY)
+    here = os.getcwd()
+    os.chdir(PARENT_DIRECTORY)
+    for suite in ARCHIVE_SUITES + CURRENT_SUITES:
+        debootstrap_suite(suite)
+    os.chdir(here)
+        
+
+ARCHIVE_SUITES = ['woody', 'sarge', 'etch', 'lenny']
+NOGPG_SUITES = ['etch']
+CURRENT_SUITES  = ['squeeze', 'wheezy', 'jessie', 'stretch']
+I386_SUITES = ['woody', 'sarge']
+
+ARCHIVE_REPO = 'http://archive.debian.org/debian'
+CURRENT_REPO = 'http://ftp.us.debian.org/debian'
+
+PARENT_DIRECTORY = '/freespace/roots'
+TARBALL_DIRECTORY = os.path.join(PARENT_DIRECTORY, 'tarballs/base')
+
+SCHROOT_USERS = ['umeboshi']
+SCHROOT_ROOT_USERS = ['umeboshi']
+SCHROOT_CONF_PATH = '/etc/schroot/chroot.d'
+
+
+if __name__ == '__main__':
+    main()
+    
+    
+    
+    
