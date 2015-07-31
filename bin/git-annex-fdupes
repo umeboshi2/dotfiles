@@ -1,0 +1,105 @@
+#!/usr/bin/env python
+#!/usr/bin/python -i
+import os, sys
+import hashlib
+import cPickle as Pickle
+import subprocess
+
+
+#from useless.base.path import path
+from unipath.path import Path as path
+from unipath import FILES, DIRS, LINKS
+
+def assert_git_directory(directory):
+    directory = path(directory)
+    here = path.cwd()
+    os.chdir(directory)
+    cmd = ['git', 'rev-parse']
+    subprocess.check_call(cmd)
+    os.chdir(here)
+    
+def parse_key(keystring):
+    method, size, ignore, checksum = keystring.strip().split('-')
+    if not size.startswith('s'):
+        raise RuntimeError, "Bad size %s" % size
+    # strip string and create number for size
+    size = int(size[1:])
+    return dict(method=method, size=size, checksum=checksum)
+
+def getkey(filepath):
+    if filepath.startswith('/'):
+        raise RuntimeError, "Need relative path"
+    cmd = ['git-annex', 'lookupkey', str(filepath)]
+    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+    proc.wait()
+    if proc.returncode:
+        msg = "%s returned %d" % (' '.join(cmd), proc.returncode)
+        raise RuntimeError, msg
+    keystring = proc.stdout.read().strip()
+    return parse_key(keystring)
+
+
+def get_directory_keys(directory, pickled=True):
+    if pickled:
+        if os.path.isfile('dirdata.pickle'):
+            return Pickle.load(file('dirdata.pickle'))
+        else:
+            print "No pickled data."
+    assert_git_directory(directory)
+    files = path(directory).walk(filter=LINKS)
+    fdata = dict()
+    for fpath in files:
+        fpath = fpath.relative()
+        if fpath in fdata:
+            raise RuntimeError, "%s already in data" % fpath
+        fdata[fpath] = getkey(fpath)
+        if not len(fdata.keys()) % 20:
+            print "added %d paths" % len(fdata.keys())
+    with file('dirdata.pickle', 'w') as outfile:
+        Pickle.dump(fdata, outfile)
+    return fdata
+
+def make_key(kdict):
+    return '%(method)s-s%(size)d--%(checksum)s' % kdict
+
+def make_lookup_dict(keydata):
+    lookup = dict()
+    for fpath, kd in keydata.items():
+        key = make_key(kd)
+        if key not in lookup:
+            lookup[key] = list()
+        lookup[key].append(fpath)
+    return lookup
+
+    
+def find_dupes(keydata):
+    lookup = make_lookup_dict(keydata)
+    for key, value in lookup.items():
+        if len(value) == 1:
+            #print "DELETING", key, value
+            del lookup[key]
+    return lookup
+
+
+def make_dupelist(dupes, outfile):
+    for key, filelist in dupes.items():
+        for filename in filelist:
+            outfile.write('%s\n' % filename)
+        outfile.write('\n')
+
+
+        
+def main():
+    global here, dupes, fdata
+    here = path.cwd()
+    fdata = get_directory_keys(here)
+    l = make_lookup_dict(fdata)
+    dupes = find_dupes(fdata)
+    make_dupelist(dupes, sys.stdout)
+
+if __name__ == '__main__':
+    main()
+    
+    
+    
+    
