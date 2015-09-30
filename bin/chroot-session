@@ -19,8 +19,8 @@ def run_session(chroot):
 ACTIONFUN = dict(start=start_session, stop=stop_session,
                  run=run_session)
 
-    
-action = run
+# default action is run    
+action = 'run'
 if len(sys.argv) > 2:
     action = sys.argv[2]
 
