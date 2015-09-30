@@ -1,4 +1,0 @@
-#!/bin/bash
-schroot --end-session -c session:webdev
-
-
