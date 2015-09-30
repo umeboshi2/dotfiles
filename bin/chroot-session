@@ -30,4 +30,4 @@ if action not in ACTIONFUN:
     raise RuntimeError, "No such action %s" % action
 
 print "%s chroot %s" % (action, chroot)
-ACTIONFUN(chroot)
+ACTIONFUN[action](chroot)
