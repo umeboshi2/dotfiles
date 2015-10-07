@@ -56,8 +56,10 @@ fi
 fresh bashrc --file
 fresh xxdiffrc --file
 fresh gitconfig --file
+fresh gitignore_global --file
 fresh garglkrc --file
 fresh profile --file
+
 
 for binfile in `ls ~/.dotfiles/bin | grep -v ~$` ; do
     fresh bin/$binfile --bin
