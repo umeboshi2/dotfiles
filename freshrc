@@ -40,6 +40,8 @@ mode=yaml-mode
 fresh yoshiki/$mode $mode.el --file=$elpackage_path/$mode.el
 mode=jinja2-mode
 fresh paradoxxxzero/$mode $mode.el --file=$elpackage_path/$mode.el
+mode=nginx-mode
+fresh ajc/$mode $mode.el --file=$elpackage_path/$mode.el
 
 
 

@@ -83,6 +83,7 @@
 
 (require 'yaml-mode)
 (require 'jinja2-mode)
+(require 'nginx-mode)
 
 ;;(require 'magit)
 (require 'package)
