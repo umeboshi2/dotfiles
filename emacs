@@ -82,7 +82,11 @@
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 
 (require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.sls\\'" . yaml-mode))
+
 (require 'jinja2-mode)
+(add-to-list 'auto-mode-alist '("\\.j2\\'" . jinja2-mode))
+
 (require 'nginx-mode)
 
 ;;(require 'magit)
