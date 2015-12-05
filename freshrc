@@ -89,7 +89,7 @@ if [[ $forest_hosts =~ "$(hostname -s)" ]]; then
     fresh pip.conf.cypress --file=~/.pip/pip.conf
     fresh pydistutils.cfg.cypress --file=~/.pydistutils.cfg
     # get stuff from cypress
-    cypress_repo=ssh://cypress/freespace/repos/git/dotfiles-umeboshi.git
+    cypress_repo=ssh://cypress.littledebian.org/freespace/repos/git/dotfiles-umeboshi.git
     for host in cypress stopgap mybooklive; do
 	fname=autostart/gkrellm-$host.desktop
 	fresh $cypress_repo gkrellm/$fname --file=~/.config/$fname
