@@ -72,6 +72,8 @@ done
 #fresh bin/webdev-start --bin
 #fresh bin/webdev-stop --bin
 #fresh bin/p7zip --bin
+
+# konsole color schemes
 if [ -d ~/.kde/share/apps/konsole ]; then
     echo "Konsole directory located..."
     colorschemes="4-s cypress funny golden indian-red khaki orange raspberry"
@@ -79,9 +81,10 @@ if [ -d ~/.kde/share/apps/konsole ]; then
     for cs in $colorschemes; do
 	filepath=~/.kde/share/apps/konsole/$cs.colorscheme
 	#fresh konsole/$cs.colorscheme --file=$filepath
-	ln -sf ~/.dotfiles/konsole$cs.colorscheme $filepath
+	ln -sf ~/.dotfiles/konsole/$cs.colorscheme $filepath
     done
 fi
+
 
 forest_hosts="pegatron gazebo cypress"
 if [[ $forest_hosts =~ "$(hostname -s)" ]]; then
