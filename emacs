@@ -15,7 +15,7 @@
  '(python-mode-hook (quote (imenu-add-menubar-index)) t)
  '(show-paren-style (quote expression)))
 (custom-set-faces
- '(default ((t (:inherit nil :stipple nil :background "#404040" :foreground "#e1e1e1" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 90 :width normal :foundry "bitstream" :family "Bitstream Vera Sans"))) t)
+ '(default ((t (:inherit nil :stipple nil :background "#404040" :foreground "#e1e1e1" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 98 :width normal :family "Droid Sans Mono"))) t)
  '(font-lock-builtin-face ((((class color) (min-colors 88) (background dark)) (:foreground "gold"))))
  '(font-lock-comment-face ((((class color) (min-colors 88) (background dark)) (:foreground "chocolate1" :height 1.1))))
  '(font-lock-keyword-face ((((class color) (min-colors 88) (background dark)) (:foreground "yellow" :weight semi-bold :height 82))))
@@ -50,12 +50,12 @@
 
 (defun my-fix-fonts-mono ()
   (interactive "*")
-  (set-face-font 'default "Mono-9")
+  (set-face-font 'default "Droid Sans Mono 10")
 )
 
 (defun my-fix-fonts ()
   (interactive "*")
-  (set-face-font 'default "DejaVu Sans-9")
+  (set-face-font 'default "Droid Sans-10")
 )
 
 (global-set-key "\C-xx" 'my-fix-fonts)
