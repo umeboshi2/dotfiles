@@ -169,3 +169,7 @@ eval `keychain --eval id_rsa id_dsa`
 if [ -r ~/.fresh/build/shell.sh ]; then
     source ~/.fresh/build/shell.sh
 fi
+
+if [[ "$(hostname -s)" == "bard" ]]; then
+    export SDL_MOUSE_RELATIVE=0
+fi
