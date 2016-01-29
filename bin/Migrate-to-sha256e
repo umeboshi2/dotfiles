@@ -1,0 +1,36 @@
+#!/usr/bin/env python
+#!/usr/bin/python -i
+import os, sys
+import hashlib
+import cPickle as Pickle
+import subprocess
+
+
+#from useless.base.path import path
+from unipath.path import Path as path
+from unipath import FILES, DIRS, LINKS
+
+def assert_git_directory(directory):
+    directory = path(directory)
+    here = path.cwd()
+    os.chdir(directory)
+    cmd = ['git', 'rev-parse']
+    subprocess.check_call(cmd)
+    os.chdir(here)
+    
+
+        
+def main():
+    subprocess.check_call(['git-annex', 'migrate'])
+    subprocess.check_call(['git-annex', 'unused'])
+    subprocess.check_call(
+        ['git-annex', 'dropunused', 'all', '--force', '--fast'])
+    subprocess.check_call(['git-annex', 'sync'])
+
+
+if __name__ == '__main__':
+    main()
+    
+    
+    
+    
