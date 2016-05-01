@@ -1,0 +1,101 @@
+;; -*- mode: emacs-lisp -*-
+
+;; add .emacs.d/packages to load-path
+(add-to-list 'load-path "~/.emacs.d/packages/")
+
+;; use debian-startup.el
+(load "debian-startup")
+(setq dotfiles-dir (file-name-directory (or load-file-name (buffer-file-name))))
+(let ((user-site-start-dir (concat dotfiles-dir "/.emacs.d/site-start.d")))
+    (debian-run-directories user-site-start-dir))
+
+(custom-set-variables
+ '(line-number-mode t)
+ '(load-home-init-file t t)
+ '(python-mode-hook (quote (imenu-add-menubar-index)) t)
+ '(show-paren-style (quote expression)))
+(custom-set-faces
+ '(default ((t (:inherit nil :stipple nil :background "#404040" :foreground "#e1e1e1" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 98 :width normal :family "Droid Sans Mono"))) t)
+ '(font-lock-builtin-face ((((class color) (min-colors 88) (background dark)) (:foreground "gold"))))
+ '(font-lock-comment-face ((((class color) (min-colors 88) (background dark)) (:foreground "chocolate1" :height 1.1))))
+ '(font-lock-keyword-face ((((class color) (min-colors 88) (background dark)) (:foreground "yellow" :weight semi-bold :height 82))))
+ '(font-lock-string-face ((((class color) (min-colors 88) (background dark)) (:foreground "pale green" :family "Monospace"))))
+ '(font-lock-type-face ((((class color) (min-colors 88) (background dark)) (:foreground "coral" :weight bold :height 1.1))))
+ '(rst-level-1-face ((t (:background "grey25"))) t)
+ '(rst-level-2-face ((t (:background "grey25"))) t)
+ '(rst-level-3-face ((t (:background "grey25"))) t)
+ '(show-paren-match ((((class color) (background dark)) (:background "#333366")))))
+
+;; auto-indent in python mode
+(add-hook 'python-mode-hook '(lambda () (define-key python-mode-map "\C-m" 'newline-and-indent)))
+
+(setq frame-background-mode (quote dark))
+
+;; default size: By default the initial frame seem
+;; to be larger than additional frames/
+(add-to-list 'initial-frame-alist '(width . 81))
+(add-to-list 'initial-frame-alist '(height . 33))
+
+(add-to-list 'default-frame-alist '(width . 81))
+(add-to-list 'default-frame-alist '(height . 33))
+
+(when window-system (set-frame-size (selected-frame) 82 33))
+
+;; paella template tag keybinding
+(global-set-key "\C-x\\" "<--||-->\C-b\C-b\C-b\C-b")
+
+
+;; this mess is for fixing the fonts on the screen
+;; It seems that I can't figure out how to use proportional fonts
+;; at startup, so we have to use a keybinding to change it on the fly.
+
+
+(defun my-fix-fonts-mono ()
+  (interactive "*")
+  (set-face-font 'default "Droid Sans Mono 9")
+)
+
+(defun my-fix-fonts ()
+  (interactive "*")
+  (set-face-font 'default "Droid Sans-9")
+)
+
+(global-set-key "\C-xx" 'my-fix-fonts)
+(global-set-key "\C-xc" 'my-fix-fonts-mono)
+
+;; start show-paren-mode
+(show-paren-mode)
+
+
+(autoload 'page-mode "page-mode" "Page-oriented display and editing" t)
+
+(autoload 'coffee-mode "coffee-mode" "CoffeeScript mode" t)
+(require 'coffee-mode)
+;; '(coffee-tab-width 2)
+(set-variable 'coffee-tab-width 2)
+(add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
+
+
+(autoload 'scss-mode "scss-mode")
+(add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
+
+(autoload 'markdown-mode "markdown-mode" "MarkDown Mode" t)
+(require 'markdown-mode)
+(add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
+
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.sls\\'" . yaml-mode))
+
+(require 'jinja2-mode)
+(add-to-list 'auto-mode-alist '("\\.j2\\'" . jinja2-mode))
+
+(require 'nginx-mode)
+
+;;(require 'magit)
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.org/packages/") t)
+(when (< emacs-major-version 24)
+  ;; For important compatibility libraries like cl-lib
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+(package-initialize) ;; You might already have this line
