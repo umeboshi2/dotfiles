@@ -1,0 +1,69 @@
+#!/usr/bin/env python
+import os, sys
+import socket
+import hashlib
+import cPickle as Pickle
+import subprocess
+from ConfigParser import ConfigParser
+import zipfile
+
+
+#from useless.base.path import path
+from unipath.path import Path as path
+from unipath import FILES, DIRS, LINKS
+
+
+
+def check_file(filename):
+    has_define = False
+    spaced_proper = True
+    newlines = list()
+    for line in file(filename):
+        if has_define and line.startswith('define'):
+            raise RuntimeError, "Too many defines"
+        if line.startswith('define'):
+            has_define = True
+            continue
+        if line.strip() and not line.startswith('  '):
+            if line.startswith('#'):
+                newlines.append(line)
+                continue
+            raise RuntimeError, "Bad line in %s: %s" % (filename, line)
+        else:
+            if not line.strip():
+                newlines.append('\n')
+            else:
+                nl = line[2:]
+                if nl.startswith('exports'):
+                    nl = 'module.' + nl
+                newlines.append(nl)
+    if not has_define:
+        raise RuntimeError, "%s has no define" % filename
+    return newlines
+
+    
+command = ''
+if len(sys.argv) > 1:
+    command = sys.argv[1]
+
+
+STATDATA = dict()
+if command == 'restore':
+    STATDATA = Pickle.load(file('STATDATA'))
+    for pathobj in STATDATA:
+        st = STATDATA[pathobj]
+        os.chmod(pathobj, st.st_mode)
+        
+
+    
+
+if not command:
+    for pathobj in path('.').walk():
+        if pathobj in STATDATA:
+            raise RuntimeError, "%s already in STATDATA" % pathobj
+        #import pdb ; pdb.set_trace()
+        STATDATA[pathobj] = pathobj.lstat()
+    print "Compiled stat data, press return to save..."
+    test = raw_input('Press Return')
+    Pickle.dump(STATDATA, file('STATDATA', 'w'))
+    print "Stat data saved."

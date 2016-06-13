@@ -21,6 +21,8 @@ fresh dircolors --file
 
 if [[ "$(hostname -s)" == "tron" ]]; then
     fresh emacs.tron --file=~/.emacs
+elif [[ "$(hostname -s)" == "bard" ]]; then
+    fresh emacs.bard --file=~/.emacs
 else
     fresh emacs --file
 fi
@@ -29,6 +31,10 @@ elpackage_path=~/.emacs.d/packages
 for elp in json-mode.el json-reformat.el mmm-mako.el debian-startup.el; do
     fresh emacs.d/packages/$elp --file=$elpackage_path/$elp
 done
+
+fresh emacsmirror/xml-rpc xml-rpc.el --file=$elpackage_path/xml-rpc.el
+
+fresh weblogger.el --file=$elpackage_path/weblogger.el
 
 mode=coffee-mode
 fresh defunkt/$mode $mode.el --file=$elpackage_path/$mode.el
@@ -61,6 +67,7 @@ fresh gitconfig --file
 fresh gitignore_global --file
 fresh garglkrc --file
 fresh profile --file
+fresh xsessionrc --file
 
 
 for binfile in `ls ~/.dotfiles/bin | grep -v ~$` ; do
