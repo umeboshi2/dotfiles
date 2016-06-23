@@ -6,7 +6,7 @@ from multiprocessing.pool import ThreadPool
 
 # resizes all image files in current directory
 
-def resize_image(src, dest, size='540x960'):
+def resize_image(src, dest, size='1080x1920'):
     print "Resizing", src
     cmd = ['convert', '-resize', size, src, dest]
     subprocess.check_call(cmd)
