@@ -1,0 +1,58 @@
+#!/usr/bin/env python
+import os, sys
+import subcommand
+
+repos = [
+    'twbs/bootstrap',
+    'marionettejs/backbone.marionette',
+    'jashkenas/backbone',
+    'jashkenas/underscore',
+    'jashkenas/coffeescript',
+    'jquery/jquery',
+    'jquery/jquery-mobile',
+    'jquery/jquery-color',
+    'jquery/jquery-ui',
+    'jquery/sizzle',
+    'webpack/webpack',
+    'webpack/webpack-dev-server',
+    'webpack/docs',
+    'webpack/json-loader',
+    'webpack/json5-loader',
+    'webpack/css-loader',
+    'webpack/url-loader',
+    'webpack/file-loader',
+    'webpack/worker-loader',
+    'webpack/raw-loader',
+    'webpack/coffee-loader',
+    'bower/bower',
+    'thedersen/backbone.validation',
+    ]
+
+parent_directory = os.path.expanduser('~/workspace/vendorstack')
+
+if not os.path.isdir(parent_directory):
+    os.makedirs(parent_directory)
+
+def clone_repo(url, dirname=None):
+    here = os.getcwd()
+    os.chdir(parent_directory)
+    cmd = ['git', 'clone', url]
+    if dirname is not None:
+        cmd.append(dirname)
+    subprocess.check_call(cmd)
+    os.chdir(here)
+    
+
+def make_github_url(repo):
+    return 'git@github.com:%s.git' % repo
+
+def clone_github_repo(repo):
+    url = make_github_url(repo)
+    clone_repo(url)
+
+
+
+for r in repos:
+    print "cloning", r
+    clone_github_repo(r)
+    
