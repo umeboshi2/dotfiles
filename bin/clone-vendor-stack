@@ -11,7 +11,12 @@ repos = [
     'Pylons/colander',
     'mozilla-services/cornice',
     # nodejs backend
+    'jaredhanson/passport',
+    'restify/node-restify',
     'dchester/epilogue',
+    'sequelize/sequelize',
+    'brianc/node-postgres',
+    'mapbox/node-sqlite3',
     'webpack/webpack',
     'webpack/webpack-dev-server',
     'webpack/docs',
