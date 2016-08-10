@@ -17,8 +17,10 @@ repos = [
     'sequelize/sequelize',
     'brianc/node-postgres',
     'mapbox/node-sqlite3',
+    'petkaantonov/bluebird',
     'webpack/webpack',
     'webpack/webpack-dev-server',
+    'webpack/analyse',
     'webpack/docs',
     'webpack/json-loader',
     'webpack/json5-loader',
@@ -29,6 +31,9 @@ repos = [
     'webpack/raw-loader',
     'webpack/coffee-loader',
     'bower/bower',
+    'TryGhost/Ghost',
+    'TryGhost/Ghost-Admin',
+    'TryGhost/Ghost-Desktop',
     # frontend
     'twbs/bootstrap',
     'marionettejs/backbone.marionette',
@@ -69,12 +74,17 @@ repos = [
     'desandro/masonry',
     'd3/d3',
     'chjj/marked',
+    'Leaflet/Leaflet',
+    'davetimmins/leaflet-wunderground-layer',
+    'icflorescu/openshift-cartridge-nodejs',
     # not really vendor stack
     'kripken/emscripten',
     'juj/emscripten-scummvm',
     'jhlywa/chess.js',
     'curiousdannii/parchment',
     'curiousdannii/gnusto',
+    'mochajs/mocha',
+    'Stuk/jszip',
     ]
 
 parent_directory = os.path.expanduser('~/workspace/vendorstack')
