@@ -3,7 +3,40 @@ import os, sys
 import subprocess
 from optparse import OptionParser
 
-repos = [
+# >= 100M
+really_big_repos = [
+    'mochajs/mocha',
+    'twbs/bootstrap',
+    'kripken/emscripten',
+    'juj/emscripten-scummvm',
+    'jquery/jquery-mobile',
+    'photonstorm/phaser',
+    'photonstorm/phaser-examples',
+    'facebook/react',
+    #'facebook/react-dom',
+    ]
+
+# > 20M
+big_repos = [
+    'ajaxorg/ace',
+    'webpack/analyse',
+    'jashkenas/backbone',
+    'jashkenas/coffeescript',
+    'd3/d3',
+    'dchester/epilogue',
+    'electron/electron',
+    'FortAwesome/Font-Awesome',
+    'TryGhost/Ghost',
+    'TryGhost/Ghost-Admin',
+    'jquery/jquery',
+    'jquery/jquery-ui',
+    'Leaflet/Leaflet',
+    'moment/moment',
+    'mapbox/node-sqlite3',
+    'sequelize/sequelize',
+    ]
+
+python_repos = [
     # python 
     'Pylons/pyramid',
     'Pylons/pyramid_debugtoolbar',
@@ -11,7 +44,30 @@ repos = [
     'Pylons/waitress',
     'Pylons/colander',
     'mozilla-services/cornice',
-    # nodejs backend
+    ]
+
+webpack_repos = [
+    'webpack/webpack',
+    'webpack/webpack-dev-server',
+    'webpack/docs',
+    'webpack/json-loader',
+    'webpack/json5-loader',
+    'webpack/css-loader',
+    'webpack/url-loader',
+    'webpack/file-loader',
+    'webpack/worker-loader',
+    'webpack/raw-loader',
+    'webpack/coffee-loader',
+    ]
+
+node_dev_repos = [
+    'bower/bower',
+    'gulpjs/gulp',
+    'gulpjs/gulp-cli',
+    'gulpjs/gulp-util',
+    ]
+
+express_repos = [
     'expressjs/express',
     'expressjs/multer',
     'expressjs/session',
@@ -28,101 +84,94 @@ repos = [
     'expressjs/express-messages',
     'expressjs/express-resource',
     'expressjs/timeout',
+    ]
+
+backend_repos = [
+    # nodejs backend
     'mweibel/connect-session-sequelize',
     'jaredhanson/passport',
     'jaredhanson/passport-facebook',
     'restify/node-restify',
-    'dchester/epilogue',
-    'sequelize/sequelize',
     'mikec/kalamata',
     'mikec/kalamata-sample',
     'tgriesser/bookshelf',
     'tgriesser/knex',
     'tgriesser/knex.wiki',
     'brianc/node-postgres',
-    'mapbox/node-sqlite3',
     'mapbox/node-sqlite3.wiki',
     'petkaantonov/bluebird',
-    'webpack/webpack',
-    'webpack/webpack-dev-server',
-    'webpack/analyse',
-    'webpack/docs',
-    'webpack/json-loader',
-    'webpack/json5-loader',
-    'webpack/css-loader',
-    'webpack/url-loader',
-    'webpack/file-loader',
-    'webpack/worker-loader',
-    'webpack/raw-loader',
-    'webpack/coffee-loader',
-    'bower/bower',
-    'TryGhost/Ghost',
-    'TryGhost/Ghost-Admin',
-    'TryGhost/Ghost-Desktop',
-    # frontend
-    'twbs/bootstrap',
+    'rauchg/ms.js',
+    ]
+
+base_vendor_repos = [
     'marionettejs/backbone.marionette',
     'marionettejs/backbone.radio',
-    'jashkenas/backbone',
     'jashkenas/underscore',
-    'jashkenas/coffeescript',
-    'jquery/jquery',
-    'jquery/jquery-mobile',
-    'jquery/jquery-color',
-    'jquery/jquery-ui',
     'jquery/sizzle',
     'thedersen/backbone.validation',
+    'goodeggs/teacup',
+    'umeboshi2/bootstrap-teacup-templates',
+    'umeboshi2/marionette-form-view',
+    'chjj/marked',
+    ]
+
+used_frontend_repos = [
+    'thlorenz/brace',
+    'fullcalendar/fullcalendar',
+    'desandro/masonry',
+    ]
+
+
+unused_repos = [
+    'TryGhost/Ghost-Desktop',
+    # frontend
+    'jquery/jquery-color',
     'bergie/hallo',
     'bergie/create',
     'bergie/VIE',
-    'goodeggs/teacup',
-    'FortAwesome/Font-Awesome',
-    'umeboshi2/bootstrap-teacup-templates',
-    'umeboshi2/marionette-form-view',
-    'thlorenz/brace',
-    'ajaxorg/ace',
-    'moment/moment',
-    'gulpjs/gulp',
-    'gulpjs/gulp-cli',
-    'gulpjs/gulp-util',
-    'electron/electron',
-    'mochajs/mocha',
-    'photonstorm/phaser',
     'photonstorm/lazer',
-    'photonstorm/phaser-examples',
     'curiousdannii/parchment',
     'curiousdannii/ifvms.js',
     'curiousdannii/gnusto',
     'hurrymaplelad/teact',
-    'facebook/react',
-    'fullcalendar/fullcalendar',
-    #'facebook/react-dom',
-    'desandro/masonry',
-    'd3/d3',
-    'chjj/marked',
-    'Leaflet/Leaflet',
+    'Leaflet/Leaflet.Icon.Glyph',
+    'Leaflet/Leaflet.fullscreen',
     'davetimmins/leaflet-wunderground-layer',
     'esri/esri-leaflet',
     'icflorescu/openshift-cartridge-nodejs',
     # not really vendor stack
-    'kripken/emscripten',
-    'juj/emscripten-scummvm',
     'jhlywa/chess.js',
     'curiousdannii/parchment',
     'curiousdannii/gnusto',
-    'mochajs/mocha',
     'Stuk/jszip',
+    'fengyuanchen/viewerjs',
     ]
+
+
+repo_dict = dict(toobig=really_big_repos,
+                 big=big_repos,
+                 python=python_repos,
+                 webpack=webpack_repos,
+                 node=node_dev_repos,
+                 express=express_repos,
+                 backend=backend_repos,
+                 fe_base=base_vendor_repos,
+                 fe_used=used_frontend_repos,
+                 unused=unused_repos,
+                 )
+
+repos = webpack_repos + node_dev_repos + express_repos + backend_repos
+repos += base_vendor_repos + used_frontend_repos + unused_repos
+
 
 parent_directory = os.path.expanduser('~/workspace/vendorstack')
 
 if not os.path.isdir(parent_directory):
     os.makedirs(parent_directory)
 
-def clone_repo(url, dirname=None):
-
+def clone_repo(url, pdir, dirname=None):
     here = os.getcwd()
-    os.chdir(parent_directory)
+    os.chdir(pdir)
     cmd = ['git', 'clone', url]
     if dirname is not None:
         cmd.append(dirname)
@@ -130,9 +179,8 @@ def clone_repo(url, dirname=None):
     os.chdir(here)
     
 
-def update_repo(url, dirname=None):
+def update_repo(url, pdir, dirname=None):
     here = os.getcwd()
-    os.chdir(parent_directory)
     cmd = ['git', 'clone', url]
     if dirname is not None:
         cmd.append(dirname)
@@ -142,9 +190,9 @@ def update_repo(url, dirname=None):
 def make_github_url(repo):
     return 'git@github.com:%s.git' % repo
 
-def clone_github_repo(repo):
+def clone_github_repo(repo, pdir):
     url = make_github_url(repo)
-    clone_repo(url)
+    clone_repo(url, pdir)
 
 
 parser = OptionParser()
@@ -153,19 +201,28 @@ parser.add_option('-p', '--pull', action='store_true', dest='pullrepo',
 
 opts, args = parser.parse_args(sys.argv[1:])
 
-
-for r in repos:
-    dirname = os.path.join(parent_directory, os.path.basename(r))
-    if not os.path.isdir(dirname):
-        print "cloning", r
-        clone_github_repo(r)
-    else:
-        if opts.pullrepo:
-            here = os.getcwd()
-            os.chdir(dirname)
-            retval = subprocess.call(['git', 'pull'])
-            print "pulled", r
-            if retval:
-                print r, "BAD PULL++++++++++++++++++++++++++++++++++++"
+for section in repo_dict:
+    pdir = os.path.join(parent_directory, section)
+    if not os.path.isdir(pdir):
+        print "Creating", pdir
+        os.makedirs(pdir)
+    for r in repo_dict[section]:
+        dirname = os.path.join(pdir, os.path.basename(r))
+        if not os.path.isdir(dirname):
+            print "cloning", r
+            clone_github_repo(r, pdir)
         else:
-            print "Skipped", r
+            if opts.pullrepo:
+                here = os.getcwd()
+                os.chdir(dirname)
+                retval = subprocess.call(['git', 'pull'])
+                print "pulled", r
+                if retval:
+                    print r, "BAD PULL++++++++++++++++++++++++++++++++++++"
+                retval = subprocess.call(['git', 'fetch', '--all'])
+                print "fetched", r
+                if retval:
+                    print r, "BAD fetch++++++++++++++++++++++++++++++++++++"
+                os.chdir(here)
+            else:
+                print "Skipped", r
