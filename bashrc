@@ -112,6 +112,7 @@ fi
 
 alias dquilt="quilt --quiltrc=${HOME}/.quiltrc-dpkg"
 
+alias grepc="grep --color=always"
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -136,6 +137,16 @@ fi
 if [ -d ~/.rbenv ]; then
     export PATH=~/.rbenv/bin:$PATH
     eval "$(rbenv init -)"
+fi
+
+# setup go env if exists
+if [ -d ~/local/go ]; then
+    export GOPATH=~/local/go
+    export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
+fi
+
+if [ -d ~/.yarn ]; then
+    export PATH="$HOME/.yarn/bin:$PATH"
 fi
 
 # git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
