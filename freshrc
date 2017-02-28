@@ -12,6 +12,9 @@ done
 fresh freshshell/fresh bin/fresh --bin
 
 fresh jasoncodes/dotfiles bin/gemdiff --bin=~/bin/gem-diff
+
+fresh bill-auger/git-branch-status git-branch-status --bin
+
 #fresh foobacca/dotfiles bash/dircolors
 
 # get some dircolors
