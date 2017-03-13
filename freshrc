@@ -101,8 +101,8 @@ fi
 laptop_hosts="bard"
 if [[ $laptop_hosts =~ "$(hostname -s)" ]]; then
     echo "This is a laptop machine"
-    fresh pip.conf.bard --file=~/.pip/pip.conf
-    fresh pydistutils.cfg.bard --file=~/.pydistutils.cfg
+    fresh pip.conf.laptop --file=~/.pip/pip.conf
+    fresh pydistutils.cfg.laptop --file=~/.pydistutils.cfg
 fi
 
 # this is gkrellm and konsole configs for
