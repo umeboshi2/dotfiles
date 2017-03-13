@@ -1,0 +1,71 @@
+#!/usr/bin/env python
+import os, sys
+import subprocess
+from optparse import OptionParser
+import json
+
+# FIXME, the codecs handled are rather limited
+EXTMAP = dict(aac='aac', vorbis='ogg', opus='opus')
+
+# FIXME, we need to close DEVNULL after executing process
+# the commented code below doesn't give a way to know where
+# DEVNULL comes from, at least without introspection of object.
+# http://stackoverflow.com/a/11270665
+#try:
+#    from subprocess import DEVNULL # py3k
+#except ImportError:
+#    DEVNULL = file(os.devnull, 'wb')
+
+
+parser = OptionParser()
+parser.add_option('--output-directory', action='store', dest='destdir',
+                  default='~/Music/vmusic')
+parser.add_option('-p', '--pull', action='store_true', dest='pullrepo',
+                  default=False)
+
+
+opts, args = parser.parse_args(sys.argv[1:])
+
+# expand destdir if needed
+destdir = os.path.expanduser(opts.destdir)
+if not os.path.isdir(destdir):
+    print "Creating", destdir
+    os.makedirs(destdir)
+    
+def probe(filename):
+    cmd = ['ffprobe', '-i', filename, '-show_format', '-show_streams',
+           '-of', 'json']
+    # with closes devnull each time
+    with open(os.devnull, 'wb') as DEVNULL:
+        # we should be able to wait and not worry about stdout
+        # being too big
+        output = subprocess.check_output(cmd, stderr=DEVNULL)
+    return json.loads(output)
+
+def get_audio_codec(probe_data):
+    pd = probe_data
+    streams = pd['streams']
+    audio_codec = ''
+    for stream in streams:
+        if stream['codec_type'] == 'audio':
+            audio_codec = stream['codec_name']
+            break
+    return audio_codec
+
+
+def convert_video(filename):
+    pdata = probe(filename)
+    codec = get_audio_codec(pdata)
+    basefilename = os.path.splitext(filename)[0]
+    outname = "%s.%s" %(basefilename, EXTMAP[codec])
+    print "outname", outname
+    dest = os.path.join(destdir, outname)
+    # -vn -> no video
+    # -c:a -> "select audio stream"
+    # copy -> just copy audio
+    cmd = ['ffmpeg', '-i', filename, '-vn', '-c:a', 'copy', dest]
+    subprocess.check_call(cmd)
+    
+if __name__ == '__main__':
+    map(convert_video, args)
+    
