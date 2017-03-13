@@ -19,7 +19,6 @@ fresh bill-auger/git-branch-status git-branch-status --bin
 
 # get some dircolors
 #fresh seebi/dircolors-solarized dircolors.ansi-light --file=~/.dircolors
-
 fresh dircolors --file
 
 if [[ "$(hostname -s)" == "tron" ]]; then
@@ -77,12 +76,6 @@ for binfile in `ls ~/.dotfiles/bin | grep -v ~$` ; do
     fresh bin/$binfile --bin
 done
 
-#fresh bin/resize-images-for-phone --bin
-#fresh bin/webdev --bin
-#fresh bin/webdev-start --bin
-#fresh bin/webdev-stop --bin
-#fresh bin/p7zip --bin
-
 # konsole color schemes
 if [ -d ~/.kde/share/apps/konsole ]; then
     echo "Konsole directory located..."
@@ -95,16 +88,26 @@ if [ -d ~/.kde/share/apps/konsole ]; then
     done
 fi
 
-
+# hosts on forest domain use devvpi on cypress
 forest_hosts="pegatron gazebo cypress"
+#http://stackoverflow.com/questions/8063228/how-do-i-check-if-a-variable-exists-in-a-list-in-bash
 if [[ $forest_hosts =~ "$(hostname -s)" ]]; then
     echo "This is a forest machine"
     fresh pip.conf.cypress --file=~/.pip/pip.conf
     fresh pydistutils.cfg.cypress --file=~/.pydistutils.cfg
 fi
 
+# laptop hosts use local devpi
+laptop_hosts="bard"
+if [[ $laptop_hosts =~ "$(hostname -s)" ]]; then
+    echo "This is a laptop machine"
+    fresh pip.conf.bard --file=~/.pip/pip.conf
+    fresh pydistutils.cfg.bard --file=~/.pydistutils.cfg
+fi
+
+# this is gkrellm and konsole configs for
+# certain hosts on forest domain.  Not used anymore.
 if false ; then
-#http://stackoverflow.com/questions/8063228/how-do-i-check-if-a-variable-exists-in-a-list-in-bash
 forest_hosts="pegatron gazebo bard"
 #if [[ "$(hostname -s)" == "pegatron" ]]; then
 if [[ $forest_hosts =~ "$(hostname -s)" ]]; then
@@ -123,7 +126,6 @@ if [[ $forest_hosts =~ "$(hostname -s)" ]]; then
 	fresh $cypress_repo konsole-pegatron/$fname --file=$konsolepath/$fname
     done
 fi
-
 fi
 
 # should we use fresh to manage these configs,
