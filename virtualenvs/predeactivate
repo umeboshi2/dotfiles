@@ -4,4 +4,6 @@
 unset WHEELPATH
 unalias pipwheel
 unalias mkwheel
+unalias lswheelhouse
+unalias pipup
 
