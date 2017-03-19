@@ -31,7 +31,7 @@ else
 fi
 
 elpackage_path=~/.emacs.d/packages
-for elp in json-mode.el json-reformat.el mmm-mako.el debian-startup.el; do
+for elp in mmm-mako.el debian-startup.el; do
     fresh emacs.d/packages/$elp --file=$elpackage_path/$elp
 done
 
@@ -51,6 +51,14 @@ mode=jinja2-mode
 fresh paradoxxxzero/$mode $mode.el --file=$elpackage_path/$mode.el
 mode=nginx-mode
 fresh ajc/$mode $mode.el --file=$elpackage_path/$mode.el
+
+pkg=json-reformat
+fresh gongo/$pkg $pkg.el --file=$elpackage_path/$pkg.el
+pkg=json-snatcher
+fresh Sterlingg/$pkg $pkg.el --file=$elpackage_path/$pkg.el
+mode=json-mode
+fresh joshwnj/json-mode $mode.el --file=$elpackage_path/$mode.el
+
 # FIXME
 mode=js2-mode
 fresh mooz/$mode $mode.el --file=$elpackage_path/$mode.el
