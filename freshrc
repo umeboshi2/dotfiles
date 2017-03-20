@@ -50,6 +50,7 @@ fresh paradoxxxzero/$mode $mode.el --file=$elpackage_path/$mode.el
 mode=nginx-mode
 fresh ajc/$mode $mode.el --file=$elpackage_path/$mode.el
 
+# JSON mode
 pkg=json-reformat
 fresh gongo/$pkg $pkg.el --file=$elpackage_path/$pkg.el
 pkg=json-snatcher
@@ -57,7 +58,17 @@ fresh Sterlingg/$pkg $pkg.el --file=$elpackage_path/$pkg.el
 mode=json-mode
 fresh joshwnj/json-mode $mode.el --file=$elpackage_path/$mode.el
 
+# git modes
+mode=gitattributes-mode
+fresh magit/git-modes $mode.el --file=$elpackage_path/$mode.el
+mode=gitconfig-mode
+fresh magit/git-modes $mode.el --file=$elpackage_path/$mode.el
+mode=gitignore-mode
+fresh magit/git-modes $mode.el --file=$elpackage_path/$mode.el
+
+
 # FIXME
+# js2-mode
 mode=js2-mode
 pkg=js2-old-indent
 fresh mooz/$mode $pkg.el --file=$elpackage_path/$pkg.el
@@ -76,7 +87,6 @@ if [ -d ~/.evm ]; then
     fresh emacs_daemon.desktop --file=~/.config/autostart/emacs_daemon.desktop
 fi
 
-#fresh emacs.d --file=~/.emacs.d/
 fresh bashrc --file
 fresh bash_aliases --file
 fresh xxdiffrc --file
