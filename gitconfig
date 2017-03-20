@@ -3,6 +3,8 @@
 	name = Joseph Rawson
 [diff]
 	tool = xxdiff
+[merge]
+	tool = xxdiff
 [difftool]
 	prompt = false
 [push]
