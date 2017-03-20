@@ -78,6 +78,7 @@ fi
 
 #fresh emacs.d --file=~/.emacs.d/
 fresh bashrc --file
+fresh bash_aliases --file
 fresh xxdiffrc --file
 fresh gitconfig --file
 fresh gitignore_global --file
