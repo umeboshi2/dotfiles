@@ -49,6 +49,10 @@ mode=jinja2-mode
 fresh paradoxxxzero/$mode $mode.el --file=$elpackage_path/$mode.el
 mode=nginx-mode
 fresh ajc/$mode $mode.el --file=$elpackage_path/$mode.el
+mode=sws-mode
+fresh brianc/jade-mode $mode.el --file=$elpackage_path/$mode.el
+mode=jade-mode
+fresh brianc/$mode $mode.el --file=$elpackage_path/$mode.el
 
 # JSON mode
 pkg=json-reformat

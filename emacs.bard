@@ -104,3 +104,6 @@
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 
 (require 'gitconfig-mode)
+
+(require 'jade-mode)
+(add-to-list 'auto-mode-alist '("\\.jade\\'" . jade-mode))
