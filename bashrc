@@ -158,3 +158,10 @@ fi
 if [[ "$(hostname -s)" == "bard" ]]; then
     export SDL_MOUSE_RELATIVE=0
 fi
+
+# set coffeelint config
+if [ -r ~/.coffeelint.json ]; then
+    export COFFEELINT_CONFIG=$HOME/.coffeelint.json
+fi
+
+

@@ -87,9 +87,9 @@ pkg=flymake-coffee
 fresh purcell/$pkg $pkg.el --file=$elpackage_path/$pkg.el
 
 
-
-fresh umeboshi2/emacs-goodies-el emacs.d/site-start.d --file=~/.emacs.d/site-start.d/
-fresh umeboshi2/emacs-goodies-el emacs.d/site-lisp --file=~/.emacs.d/site-lisp/
+goodies=umeboshi2/emacs-goodies-el
+fresh $goodies emacs.d/site-start.d --file=~/.emacs.d/site-start.d/
+fresh $goodies emacs.d/site-lisp --file=~/.emacs.d/site-lisp/
 
 # get evm
 #$ curl -fsSkL https://raw.github.com/rejeep/evm/master/go | bash
@@ -99,12 +99,13 @@ fi
 
 fresh bashrc --file
 fresh bash_aliases --file
-fresh xxdiffrc --file
+fresh coffeelint.json --file
+fresh garglkrc --file
 fresh gitconfig --file
 fresh gitignore_global --file
-fresh garglkrc --file
 fresh profile --file
 fresh xsessionrc --file
+fresh xxdiffrc --file
 
 
 for binfile in `ls ~/.dotfiles/bin | grep -v ~$` ; do
