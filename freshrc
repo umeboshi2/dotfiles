@@ -78,7 +78,13 @@ pkg=js2-old-indent
 fresh mooz/$mode $pkg.el --file=$elpackage_path/$pkg.el
 fresh mooz/$mode $mode.el --file=$elpackage_path/$mode.el
 
+pkg=flymake
+fresh flymake/emacs-flymake $pkg.el --file=$elpackage_path/$pkg.el
 
+pkg=flymake-easy
+fresh purcell/$pkg $pkg.el --file=$elpackage_path/$pkg.el
+pkg=flymake-coffee
+fresh purcell/$pkg $pkg.el --file=$elpackage_path/$pkg.el
 
 
 
