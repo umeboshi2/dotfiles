@@ -166,4 +166,9 @@ if [ -r ~/.coffeelint.json ]; then
     export COFFEELINT_CONFIG=$HOME/.coffeelint.json
 fi
 
+if [ -r /etc/redhat-release ]; then
+    echo "redhat system, using most for PAGER"
+    export PAGER=/usr/local/bin/most
+fi
 
+   

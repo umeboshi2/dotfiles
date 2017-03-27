@@ -97,11 +97,18 @@ if [ -d ~/.evm ]; then
     fresh emacs_daemon.desktop --file=~/.config/autostart/emacs_daemon.desktop
 fi
 
+# centos6 has old git version
+if [ -r /etc/redhat-release ]; then
+    echo "redhat system, using old git"
+    fresh gitconfig-1.7.1 --file
+else
+    fresh gitconfig --file
+fi
+
 fresh bashrc --file
 fresh bash_aliases --file
 fresh coffeelint.json --file
 fresh garglkrc --file
-fresh gitconfig --file
 fresh gitignore_global --file
 fresh profile --file
 fresh xsessionrc --file
