@@ -100,7 +100,7 @@ fi
 # centos6 has old git version
 if [ -r /etc/redhat-release ]; then
     echo "redhat system, using old git"
-    fresh gitconfig-1.7.1 --file
+    fresh gitconfig-1.7.1 --file=~/.gitconfig
 else
     fresh gitconfig --file
 fi
