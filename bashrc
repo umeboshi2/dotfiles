@@ -149,7 +149,9 @@ fi
 
 export EDITOR=/usr/local/bin/editor
 
-eval `keychain --eval id_rsa id_dsa`
+if [ -x /usr/bin/keychain ]; then
+    eval `keychain --eval id_rsa id_dsa`
+fi
 
 if [ -r ~/.fresh/build/shell.sh ]; then
     source ~/.fresh/build/shell.sh
