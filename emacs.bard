@@ -114,3 +114,8 @@
 
 (require 'json-mode)
 (add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
+
+(require 'php-mode)
+(add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
+(eval-after-load 'php-mode
+  '(require 'php-ext))

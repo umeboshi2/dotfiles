@@ -91,6 +91,13 @@ goodies=umeboshi2/emacs-goodies-el
 fresh $goodies emacs.d/site-start.d --file=~/.emacs.d/site-start.d/
 fresh $goodies emacs.d/site-lisp --file=~/.emacs.d/site-lisp/
 
+
+mode=php-mode
+fresh ejmr/$mode $mode.el --file=$elpackage_path/$mode.el
+fresh ejmr/$mode skeleton/php-ext.el --file=$elpackage_path/php-ext.el
+
+
+
 # get evm
 #$ curl -fsSkL https://raw.github.com/rejeep/evm/master/go | bash
 if [ -d ~/.evm ]; then
