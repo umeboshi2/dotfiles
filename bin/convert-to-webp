@@ -1,0 +1,52 @@
+#!/usr/bin/env python
+import os, sys
+import subprocess
+from optparse import OptionParser
+import json
+
+# FIXME, the codecs handled are rather limited
+EXTMAP = dict(aac='aac', vorbis='ogg', opus='opus')
+
+# FIXME, we need to close DEVNULL after executing process
+# the commented code below doesn't give a way to know where
+# DEVNULL comes from, at least without introspection of object.
+# http://stackoverflow.com/a/11270665
+#try:
+#    from subprocess import DEVNULL # py3k
+#except ImportError:
+#    DEVNULL = file(os.devnull, 'wb')
+
+
+parser = OptionParser()
+parser.add_option('--output-directory', action='store', dest='destdir',
+                  default='./webp')
+parser.add_option('-p', '--pull', action='store_true', dest='pullrepo',
+                  default=False)
+
+
+opts, args = parser.parse_args(sys.argv[1:])
+
+# expand destdir if needed
+destdir = os.path.expanduser(opts.destdir)
+if not os.path.isdir(destdir):
+    print "Creating", destdir
+    os.makedirs(destdir)
+    
+def convert_picture(filename):
+    destbase = '%s.webp' % filename.split('.jpg')[0]
+    destfile = os.path.join(destdir, destbase)
+    cmd = ['cwebp', filename, '-o', destfile]
+    subprocess.check_call(cmd)
+
+def convert_pictures(dirname):
+    files = os.listdir(dirname)
+    files = [os.path.join(dirname, f) for f in files if f.endswith('.jpg')]
+    for f in files:
+        convert_picture(f)
+        
+    
+if __name__ == '__main__':
+    dirname = '.'
+    if len(args):
+        dirname = args[0]
+    convert_pictures(dirname)
