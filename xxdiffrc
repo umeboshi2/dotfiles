@@ -3,6 +3,6 @@ Accel.EditRight: "Ctrl+]"
 FontText: "Bitstream Vera Sans Mono,8,-1,5,50,0,0,0,0,0"
 DirDiffRecursive: True
 Show.Toolbar: True
-Command.DiffDirectoriesRec: "diff -b -q -s -r --exclude=.svn --exclude=.git --exclude=SCCS --exclude=CVS --exclude=*.pyc --exclude=*~"
+Command.DiffDirectoriesRec: "diff -b -q -s -r --exclude=.svn --exclude=.git --exclude=SCCS --exclude=CVS --exclude=*.pyc --exclude=*~ --exclude=node_modules"
 Command.DiffFiles2: "diff -d"
 Command.Edit: "editor"
