@@ -171,5 +171,6 @@ if [ -r /etc/redhat-release ]; then
     export PAGER=/usr/local/bin/most
 fi
 
-   
-workon main
+if [ -r ~/.virtualenvs/main/bin/activate ]; then
+    source ~/.virtualenvs/main/bin/activate
+fi
