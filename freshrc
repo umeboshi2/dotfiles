@@ -151,8 +151,8 @@ fi
 laptop_hosts="bard"
 if [[ $laptop_hosts =~ "$(hostname -s)" ]]; then
     echo "This is a laptop machine"
-    fresh pip.conf.laptop --file=~/.pip/pip.conf
-    fresh pydistutils.cfg.laptop --file=~/.pydistutils.cfg
+    #fresh pip.conf.laptop --file=~/.pip/pip.conf
+    #fresh pydistutils.cfg.laptop --file=~/.pydistutils.cfg
 fi
 
 # this is gkrellm and konsole configs for
@@ -192,12 +192,12 @@ fresh virtualenvs/predeactivate --file=~/.virtualenvs/predeactivate
 
 
 # rbenv
-if ! [ -d ~/.rbenv ]; then
-    git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
-    git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
-    . .bashrc
-    rbenv install 2.1.5
-fi
+#if ! [ -d ~/.rbenv ]; then
+#    git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+#    git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+#    . .bashrc
+#    rbenv install 2.1.5
+#fi
 
 
 # btrfs-defrag script
