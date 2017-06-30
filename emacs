@@ -50,12 +50,12 @@
 
 (defun my-fix-fonts-mono ()
   (interactive "*")
-  (set-face-font 'default "Droid Sans Mono 10")
+  (set-face-font 'default "Noto Sans Mono 9")
 )
 
 (defun my-fix-fonts ()
   (interactive "*")
-  (set-face-font 'default "Droid Sans-10")
+  (set-face-font 'default "Noto Sans-9")
 )
 
 (global-set-key "\C-xx" 'my-fix-fonts)
@@ -112,3 +112,15 @@
 
 (require 'json-mode)
 (add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
+
+;(require 'php-mode)
+;(add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
+;(eval-after-load 'php-mode
+;  '(require 'php-ext))
+;; https://github.com/broccolijs/broccoli/issues/233#issuecomment-166018886
+;; this helps with: https://github.com/webpack/webpack/issues/2156
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+(setq create-lockfiles nil)
