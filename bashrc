@@ -171,6 +171,27 @@ if [ -r /etc/redhat-release ]; then
     export PAGER=/usr/local/bin/most
 fi
 
+if [ -r ~/.config/libpq-env ]; then
+    echo "Setting libpq environment variables"
+    source ~/.config/libpq-env
+fi
+
+
+
 if [ -r ~/.virtualenvs/main/bin/activate ]; then
     source ~/.virtualenvs/main/bin/activate
 fi
+
+# check for yarn after we activate the virtualenv
+if [ -n `which yarn` ]; then
+    # now check for .yarnrc and mutex
+    if [ -r ~/.yarnrc ] && [ 0 = `grep mutex ~/.yarnrc | wc -l` ]; then
+	echo "Setting yarn mutex at /tmp/.yarn-mutex"
+	yarn config set -- --mutex file:/tmp/.yarn-mutex
+    fi
+fi
+
+
+# for xscreensaver -window-id $DESKTOPWINID
+export DESKTOPWINID=$(xwininfo -name "Desktop" | grep 'Window id' | sed 's/.*\(0x[0-9a-z]*\).*/\1/g')
+
