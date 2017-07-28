@@ -17,4 +17,7 @@
 	st = status
     	stig = status --ignored
     	stuno = status -uno
-    	xx = difftool
+	xx = difftool
+	# https://stackoverflow.com/a/822859
+	bstatus = diff --name-status
+	
