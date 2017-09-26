@@ -119,6 +119,7 @@
 ;(add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
 ;(eval-after-load 'php-mode
 ;  '(require 'php-ext))
+
 ;; https://github.com/broccolijs/broccoli/issues/233#issuecomment-166018886
 ;; this helps with: https://github.com/webpack/webpack/issues/2156
 (setq backup-directory-alist
