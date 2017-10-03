@@ -1,0 +1,108 @@
+#!/usr/bin/env python
+import os, sys
+import subprocess
+from optparse import OptionParser
+
+NODE_VERSION_URL = 'https://semver.io/node/resolve/6.x'
+_Failsafe_NODE_VERSION = '6.11.3'
+
+node_packaging = [
+    'bower',
+    'npm-check-updates',
+    'npm',
+    'yarn',
+]
+
+yo_packages = [
+    'generator-react-coffee-webpack',
+    'yo'
+]
+
+util_packages = [
+    'http-server',
+    'gitbook-cli',
+    'js2coffee',
+    'nesh',
+    'underscore'
+]
+
+testing_packages = [
+    'coffeelint',
+    'mocha',
+    'phantomjs-prebuilt',
+]
+
+dev_packages = [
+    'electron',
+    'gulp',
+    # use new coffeescript 2.x
+    'coffeescript',
+    'grunt-cli',
+    'webpack',
+    'webpack-dev-middleware',
+    # FIXME we are having problems with newer
+    # dev servers.
+    'webpack-dev-server@2.4.5'
+]
+
+misc_packages = [
+    'cjsx-codemod',
+    'madge',
+    'knex'
+]
+
+GLOBAL_NODE_MODULES = node_packaging + yo_packages + util_packages
+GLOBAL_NODE_MODULES += testing_packages + dev_packages + misc_packages
+
+
+PYTHON_PACKAGES = [
+    'virtualenvwrapper',
+    'youtube-dl',
+    'rarfile',
+    'beautifulsoup4',
+    'GitPython',
+    'nodeenv',
+    'cookiecutter'
+]
+
+
+def install_pypkgs(plist=PYTHON_PACKAGES):
+    for pkg in plist:
+        cmd = ['pip', 'install', pkg]
+        subprocess.check_call(cmd)
+
+def install_nodeenv():
+    cmd = ['nodeenv', '-p', '-n', '6.11.3']
+    subprocess.check_call(cmd)
+
+def update_npm():
+    cmd = ['npm', 'up', '-g', 'npm']
+    subprocess.check_call(cmd)
+
+def install_node_globals(plist=GLOBAL_NODE_MODULES):
+    cmd = ['npm', 'install', '-g'] + plist
+    subprocess.check_call(cmd)
+    
+
+if __name__ == '__main__':
+    venv = os.path.basename(os.environ.get('VIRTUAL_ENV'))
+    if venv != 'main':
+        print "we must be in a virtualenv named main"
+        sys.exit(1)
+        
+    install_pypkgs()
+    npm_installed = False
+    try:
+        subprocess.check_call(['npm', '--version'])
+        npm_installed = True
+    except subprocess.CalledProcessError:
+        pass
+    except OSError, e:
+        print e
+        if e.errno != 2:
+            raise e
+    if not npm_installed:
+        install_nodeenv()
+        update_npm()
+    install_node_globals()
+    
