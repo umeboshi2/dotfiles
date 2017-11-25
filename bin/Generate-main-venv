@@ -78,6 +78,7 @@ PYTHON_PACKAGES = [
     'requests',
     'bpython',
     'ipython',
+    'httpie',
 ]
 
 
