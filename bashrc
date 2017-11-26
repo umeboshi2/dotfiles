@@ -114,14 +114,17 @@ if [ -d ~/.rbenv ]; then
 fi
 
 # setup go env if exists
-if [ -d ~/local/go ]; then
-    export GOPATH=~/local/go
-    export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
+if [ -d $HOME/local/go ]; then
+    export GOROOT=$HOME/local/go
+    export PATH=$GOROOT/bin:$PATH
+    export GOPATH=$HOME/workspace/go
+    export GOBIN=$GOROOT/bin
 fi
 
-if [ -d ~/.yarn ]; then
-    export PATH="$HOME/.yarn/bin:$PATH"
-fi
+# not using yarn
+#if [ -d ~/.yarn ]; then
+#    export PATH="$HOME/.yarn/bin:$PATH"
+#fi
 
 # git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
 # git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
