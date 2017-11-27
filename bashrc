@@ -121,6 +121,13 @@ if [ -d $HOME/local/go ]; then
     export GOBIN=$GOROOT/bin
 fi
 
+# setup ansible roles path
+if [ -d $HOME/local/roles ]; then
+    export ANSIBLE_ROLES_PATH=$HOME/local/roles
+fi
+
+
+
 # not using yarn
 #if [ -d ~/.yarn ]; then
 #    export PATH="$HOME/.yarn/bin:$PATH"
