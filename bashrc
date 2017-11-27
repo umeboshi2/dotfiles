@@ -128,11 +128,6 @@ fi
 
 
 
-# not using yarn
-#if [ -d ~/.yarn ]; then
-#    export PATH="$HOME/.yarn/bin:$PATH"
-#fi
-
 # git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
 # git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
 # sudo aptitude install git zsh libssl-dev zlib1g-dev libreadline-dev libyaml-dev
@@ -191,16 +186,6 @@ fi
 if [ -r ~/.virtualenvs/main/bin/activate ]; then
     source ~/.virtualenvs/main/bin/activate
 fi
-
-# check for yarn after we activate the virtualenv
-if [ -n `which yarn` ]; then
-    # now check for .yarnrc and mutex
-    if [ -r ~/.yarnrc ] && [ 0 = `grep mutex ~/.yarnrc | wc -l` ]; then
-	echo "Setting yarn mutex at /tmp/.yarn-mutex"
-	yarn config set -- --mutex file:/tmp/.yarn-mutex
-    fi
-fi
-
 
 # for xscreensaver -window-id $DESKTOPWINID
 export DESKTOPWINID=$(xwininfo -name "Desktop" | grep 'Window id' | sed 's/.*\(0x[0-9a-z]*\).*/\1/g')
