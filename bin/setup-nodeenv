@@ -1,0 +1,122 @@
+#!/usr/bin/env python
+from __future__ import absolute_import, division, print_function, unicode_literals
+import os, sys
+import subprocess
+import tarfile
+from optparse import OptionParser
+
+LOCAL_DATA_PATH = os.environ.get('XDG_DATA_HOME')
+if LOCAL_DATA_PATH is None:
+    LOCAL_DATA_PATH = os.path.expanduser('~/.local/share')
+
+DOTFILES_DATA = os.path.join(LOCAL_DATA_PATH, 'dotfiles')
+
+NODE_VERSION_URL = 'https://semver.io/node/resolve/6'
+_Failsafe_NODE_VERSION = '6.11.3'
+
+node_packaging = [
+    'bower',
+    'npm-check-updates',
+    'npm',
+    'yarn',
+    'local-npm',
+]
+
+yo_packages = [
+    'generator-react-coffee-webpack',
+    'generator-chrome-extension',
+    'yo'
+]
+
+util_packages = [
+    'http-server',
+    'gitbook-cli',
+    'js2coffee',
+    'nesh',
+    'underscore'
+]
+
+testing_packages = [
+    'coffeelint',
+    'mocha',
+    'phantomjs-prebuilt',
+]
+
+dev_packages = [
+    'electron',
+    'gulp',
+    # use new coffeescript 2.x
+    'coffeescript',
+    'grunt-cli',
+    'webpack',
+    'webpack-dev-middleware',
+    # FIXME we are having problems with newer
+    # dev servers.
+    'webpack-dev-server@2.4.5'
+]
+
+misc_packages = [
+    'cjsx-codemod',
+    'madge',
+    'knex'
+]
+
+GLOBAL_NODE_MODULES = node_packaging + yo_packages + util_packages
+GLOBAL_NODE_MODULES += testing_packages + dev_packages + misc_packages
+
+print(len(GLOBAL_NODE_MODULES), "GLOBAL_NODE_MODULES")
+
+
+def install_nodeenv():
+    import requests
+    r = requests.get(NODE_VERSION_URL)
+    if not r.ok:
+        raise RuntimeError("Bad response")
+    version = r.content
+    print("Installing nodejs version", version)
+    cmd = ['nodeenv', '-p', '-n', version]
+    subprocess.check_call(cmd)
+
+def update_npm():
+    cmd = ['npm', 'up', '-g', 'npm']
+    subprocess.check_call(cmd)
+
+def install_node_globals(plist=GLOBAL_NODE_MODULES):
+    cmd = ['npm', 'install', '-g'] + plist
+    subprocess.check_call(cmd)
+
+            
+if __name__ == '__main__':
+    vpath = os.environ.get('VIRTUAL_ENV')
+    if vpath is None:
+        print("we must be in a virtualenv")
+        sys.exit(1)
+    venv = os.path.basename(vpath)
+    print("Installing node environment in {}".format(venv))
+    if venv != 'main':
+        print("we must be in a virtualenv named main")
+        sys.exit(1)
+    if not os.path.isdir(DOTFILES_DATA):
+        print("Creating", DOTFILES_DATA)
+        os.makedirs(DOTFILES_DATA)
+    npm_installed = False
+    try:
+        subprocess.check_call(['npm', '--version'])
+        npm_installed = True
+    except subprocess.CalledProcessError:
+        pass
+    except OSError as e:
+        print(e)
+        if e.errno != os.errno.ENOENT:
+            raise e
+    if not npm_installed:
+        install_nodeenv()
+        update_npm()
+    modpath = os.path.join(vpath, 'lib', 'node_modules')
+    global_modules = os.listdir(modpath)
+    if len(global_modules) != len(GLOBAL_NODE_MODULES):
+        print("INSTALLING GLOBAL NODE MODULES")
+        install_node_globals()
+    print("DOTFILES_DATA", DOTFILES_DATA)
+
+    
