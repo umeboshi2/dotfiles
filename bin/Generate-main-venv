@@ -11,62 +11,6 @@ if LOCAL_DATA_PATH is None:
 
 DOTFILES_DATA = os.path.join(LOCAL_DATA_PATH, 'dotfiles')
 
-NODE_VERSION_URL = 'https://semver.io/node/resolve/6'
-_Failsafe_NODE_VERSION = '6.11.3'
-
-node_packaging = [
-    'bower',
-    'npm-check-updates',
-    'npm',
-    'yarn',
-    'local-npm',
-]
-
-yo_packages = [
-    'generator-react-coffee-webpack',
-    'generator-chrome-extension',
-    'yo'
-]
-
-util_packages = [
-    'http-server',
-    'gitbook-cli',
-    'js2coffee',
-    'nesh',
-    'underscore'
-]
-
-testing_packages = [
-    'coffeelint',
-    'mocha',
-    'phantomjs-prebuilt',
-]
-
-dev_packages = [
-    'electron',
-    'gulp',
-    # use new coffeescript 2.x
-    'coffeescript',
-    'grunt-cli',
-    'webpack',
-    'webpack-dev-middleware',
-    # FIXME we are having problems with newer
-    # dev servers.
-    'webpack-dev-server@2.4.5'
-]
-
-misc_packages = [
-    'cjsx-codemod',
-    'madge',
-    'knex'
-]
-
-GLOBAL_NODE_MODULES = node_packaging + yo_packages + util_packages
-GLOBAL_NODE_MODULES += testing_packages + dev_packages + misc_packages
-
-print(len(GLOBAL_NODE_MODULES), "GLOBAL_NODE_MODULES")
-
-
 PYTHON_PACKAGES = [
     'virtualenvwrapper',
     'youtube-dl',
@@ -80,41 +24,41 @@ PYTHON_PACKAGES = [
     'bpython',
     'ipython',
     'httpie',
+    'ansible',
 ]
 
 
-def count_installed_pypkgs():
+def get_installed_pypkgs():
     cmd = ['pip', 'freeze']
     proc = subprocess.Popen(cmd, stdout=subprocess.PIPE)
-    # FIXME
-    proc.wait()
-    count = 0
+    lines = []
+    pkgs = []
     for line in proc.stdout:
-        count += 1
-    return count
+        line = line.strip().decode()
+        if line.startswith('-e'):
+            pkg = line.split('#egg=')[1]
+        else:
+            if '==' not in line:
+                raise RuntimeError("can't parse line '{}'".format(line))
+            pkg = line.split('==')[0]
+        pkgs.append(pkg)
+    return pkgs
+
+def is_install_pypkgs_needed():
+    installed = get_installed_pypkgs()
+    install_needed = False
+    for pkg in PYTHON_PACKAGES:
+        if pkg not in installed:
+            print("{} not installed.".format(pkg))
+            install_needed = True
+            break
+    return install_needed
+
 
 def install_pypkgs(plist=PYTHON_PACKAGES):
     for pkg in plist:
         cmd = ['pip', 'install', pkg]
         subprocess.check_call(cmd)
-
-def install_nodeenv():
-    import requests
-    r = requests.get(NODE_VERSION_URL)
-    if not r.ok:
-        raise RuntimeError("Bad response")
-    version = r.content
-    print("Installing nodejs version", version)
-    cmd = ['nodeenv', '-p', '-n', version]
-    subprocess.check_call(cmd)
-
-def update_npm():
-    cmd = ['npm', 'up', '-g', 'npm']
-    subprocess.check_call(cmd)
-
-def install_node_globals(plist=GLOBAL_NODE_MODULES):
-    cmd = ['npm', 'install', '-g'] + plist
-    subprocess.check_call(cmd)
 
 minishift_release_url = "https://github.com/minishift/minishift/releases/download/v%(version)s/minishift-%(version)s-linux-amd64.tgz"
 
@@ -148,7 +92,7 @@ def check_minishift(version='1.8.0'):
         tres = requests.get(tarball['browser_download_url'])
         if not tres.ok:
             raise RuntimeError("bad response")
-        with file(tfilename, 'w') as outfile:
+        with open(tfilename, 'w') as outfile:
             outfile.write(tres.content)
     tfile = tarfile.open(tfilename)
     fn = [f for f in tfile.getnames() if f.endswith('/minishift')][0]
@@ -158,7 +102,7 @@ def check_minishift(version='1.8.0'):
         print(fn)
         extracted = tfile.extractfile(fn)
         binfile = '/usr/local/bin/minishift'
-        with file(binfile, 'w') as outfile:
+        with open(binfile, 'wb') as outfile:
             outfile.write(extracted.read())
     
 
@@ -182,28 +126,13 @@ if __name__ == '__main__':
     if not os.path.isdir(DOTFILES_DATA):
         print("Creating", DOTFILES_DATA)
         os.makedirs(DOTFILES_DATA)
-    if len(PYTHON_PACKAGES) > count_installed_pypkgs():
+    if is_install_pypkgs_needed():
         print("Installing python packages...")
         install_pypkgs()
-        
-    npm_installed = False
-    try:
-        subprocess.check_call(['npm', '--version'])
-        npm_installed = True
-    except subprocess.CalledProcessError:
-        pass
-    except OSError as e:
-        print(e)
-        if e.errno != os.errno.ENOENT:
-            raise e
-    if not npm_installed:
-        install_nodeenv()
-        update_npm()
-    modpath = os.path.join(vpath, 'lib', 'node_modules')
-    global_modules = os.listdir(modpath)
-    if len(global_modules) != len(GLOBAL_NODE_MODULES):
-        print("INSTALLING GLOBAL NODE MODULES")
-        install_node_globals()
+    print("Setting up node environment...")
+    cmd = [os.path.expanduser('~/bin/setup-nodeenv')]
+    subprocess.check_call(cmd)
     print("DOTFILES_DATA", DOTFILES_DATA)
-    check_minishift()
+
+    #check_minishift()
     
