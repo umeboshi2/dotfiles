@@ -1,6 +1,6 @@
 # $HOME/.pip/pip.conf
 [global]
-index-url = http://localhost:3141/root/pypi/+simple/
+index-url = http://localhost:4040/root/pypi/+simple/
 
 [search]
-index = http://localhost:3141/root/pypi/
+index = http://localhost:4040/root/pypi/
