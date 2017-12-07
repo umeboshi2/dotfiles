@@ -2,6 +2,8 @@
 
 ;; add .emacs.d/packages to load-path
 (add-to-list 'load-path "~/.emacs.d/packages/")
+(add-to-list 'load-path "~/.emacs.d/use-pkg-packages/")
+
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
@@ -9,32 +11,56 @@
   ;; For important compatibility libraries like cl-lib
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize) ;; You might already have this line
+
+;; https://emacs.stackexchange.com/questions/26954/how-do-i-install-company-mode-via-ensure-packages-installed
+; fetch the list of packages available
+(or (file-exists-p package-user-dir)
+  (package-refresh-contents))
+
+(defun ensure-packages-installed (&rest packages)
+  (mapcar (lambda (package)
+    (unless (package-installed-p package)
+      (package-install package))) packages))
+
+(ensure-packages-installed
+ 'imenu-anywhere
+ 'flycheck
+ 'elpy
+ 'company-jedi
+ 'company-ansible
+ )
+
+(add-hook 'after-init-hook 'global-company-mode)
+(global-flycheck-mode)
+(elpy-enable)
+(add-to-list 'company-backends 'company-jedi)
+
 ;;(package-refresh-contents)
 
 ;; start with use-package
-(eval-when-compile
-  (require 'use-package))
+;(eval-when-compile
+;  (require 'use-package))
 ;;(require 'diminish)                ;; if you use :diminish
-(require 'bind-key)                ;; if you use any :bind variant
+;(require 'bind-key)                ;; if you use any :bind variant
 
-(use-package imenu-anywhere
-  :ensure t
-  :bind (("C-c i" . imenu-anywhere)))
+;(use-package imenu-anywhere
+;  :ensure t
+;  :bind (("C-c i" . imenu-anywhere)))
 
-(use-package flycheck
-  :ensure t
-  :init (global-flycheck-mode))
+;(use-package flycheck
+;  :ensure t
+;  :init (global-flycheck-mode))
 
-(use-package company-mode
-  :ensure t)
+;(use-package company-mode
+;  :ensure t)
 
-(use-package company-jedi
-  :ensure t)
+;(use-package company-jedi
+;  :ensure t)
   ;;:init (add-to-list 'company-backends 'company-jedi))
 
-(use-package elpy
-  :ensure t
-  :init (elpy-enable))
+;(use-package elpy
+;  :ensure t
+;  :init (elpy-enable))
 
 
 
@@ -111,7 +137,7 @@
 
 (global-set-key "\C-xx" 'my-fix-fonts)
 (global-set-key "\C-xc" 'my-fix-fonts-mono)
-
+(global-set-key "\M-p" 'company-complete)
 ;; start show-paren-mode
 (show-paren-mode)
 

@@ -86,11 +86,19 @@ fresh purcell/$pkg $pkg.el --file=$elpackage_path/$pkg.el
 pkg=flymake-coffee
 fresh purcell/$pkg $pkg.el --file=$elpackage_path/$pkg.el
 
-pkg=use-package
-fresh jwiegley/use-package $pkg.el --file=$elpackage_path/$pkg.el
 
-pkg=bind-key
-fresh jwiegley/use-package $pkg.el --file=$elpackage_path/$pkg.el
+use_pkg_path=~/.emacs.d/use-pkg-packages
+fresh jwiegley/use-package . --file=$use_pkg_path/
+
+
+#pkg=use-package-core
+#fresh jwiegley/use-package $pkg.el --file=$elpackage_path/$pkg.el
+#pkg=use-package-bind-key
+#fresh jwiegley/use-package $pkg.el --file=$elpackage_path/$pkg.el
+#pkg=bind-key
+#fresh jwiegley/use-package $pkg.el --file=$elpackage_path/use-package/$pkg.el
+#fresh jwiegley/use-package use-*.el --file=$elpackage_path/use-package
+
 
 goodies=umeboshi2/emacs-goodies-el
 fresh $goodies emacs.d/site-start.d --file=~/.emacs.d/site-start.d/
