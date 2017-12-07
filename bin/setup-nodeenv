@@ -16,10 +16,8 @@ NODE_VERSION_URL = 'https://semver.io/node/resolve/6'
 _Failsafe_NODE_VERSION = '6.11.3'
 
 node_packaging = [
-    'bower',
     'npm-check-updates',
     'npm',
-    'yarn',
     'local-npm',
 ]
 
@@ -43,17 +41,23 @@ testing_packages = [
     'phantomjs-prebuilt',
 ]
 
+
 dev_packages = [
+    'amber-cli',
     'electron',
     'gulp',
+    'bower',
     # use new coffeescript 2.x
     'coffeescript',
     'grunt-cli',
+    'grunt-init'
+    'yarn',
     'webpack',
     'webpack-dev-middleware',
     # FIXME we are having problems with newer
     # dev servers.
-    'webpack-dev-server@2.4.5'
+    #'webpack-dev-server@2.4.5'
+    'webpack-dev-server'
 ]
 
 misc_packages = [
