@@ -25,6 +25,13 @@ PYTHON_PACKAGES = [
     'ipython',
     'httpie',
     'ansible',
+    'aiopyramid',
+    'jedi',
+    'rope',
+    'flake8',
+    'importmagic',
+    'autopep8',
+    'yapf',
 ]
 
 
