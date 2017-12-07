@@ -2,6 +2,41 @@
 
 ;; add .emacs.d/packages to load-path
 (add-to-list 'load-path "~/.emacs.d/packages/")
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.org/packages/") t)
+(when (< emacs-major-version 24)
+  ;; For important compatibility libraries like cl-lib
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+(package-initialize) ;; You might already have this line
+;;(package-refresh-contents)
+
+;; start with use-package
+(eval-when-compile
+  (require 'use-package))
+;;(require 'diminish)                ;; if you use :diminish
+(require 'bind-key)                ;; if you use any :bind variant
+
+(use-package imenu-anywhere
+  :ensure t
+  :bind (("C-c i" . imenu-anywhere)))
+
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
+
+(use-package company-mode
+  :ensure t)
+
+(use-package company-jedi
+  :ensure t)
+  ;;:init (add-to-list 'company-backends 'company-jedi))
+
+(use-package elpy
+  :ensure t
+  :init (elpy-enable))
+
+
 
 ;; use debian-startup.el
 (load "debian-startup")
@@ -10,12 +45,21 @@
     (debian-run-directories user-site-start-dir))
 
 (custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(line-number-mode t)
  '(load-home-init-file t t)
+ '(package-selected-packages (quote (imenu-anywhere)))
  '(python-mode-hook (quote (imenu-add-menubar-index)) t)
  '(show-paren-style (quote expression)))
 (custom-set-faces
- '(default ((t (:inherit nil :stipple nil :background "#404040" :foreground "#e1e1e1" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 98 :width normal :family "Noto Mono"))) t)
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:inherit nil :stipple nil :background "#404040" :foreground "#e1e1e1" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 98 :width normal :family "Noto Mono"))))
  '(font-lock-builtin-face ((((class color) (min-colors 88) (background dark)) (:foreground "gold"))))
  '(font-lock-comment-face ((((class color) (min-colors 88) (background dark)) (:foreground "chocolate1" :height 1.1))))
  '(font-lock-keyword-face ((((class color) (min-colors 88) (background dark)) (:foreground "yellow" :weight semi-bold :height 82))))
@@ -28,6 +72,11 @@
 
 ;; auto-indent in python mode
 (add-hook 'python-mode-hook '(lambda () (define-key python-mode-map "\C-m" 'newline-and-indent)))
+;; company-jedi https://github.com/syohex/emacs-company-jedi
+(defun my/python-mode-hook ()
+  (add-to-list 'company-backends 'company-jedi))
+
+(add-hook 'python-mode-hook 'my/python-mode-hook)
 
 (setq frame-background-mode (quote dark))
 
@@ -92,13 +141,6 @@
 (require 'nginx-mode)
 
 ;;(require 'magit)
-(require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/") t)
-(when (< emacs-major-version 24)
-  ;; For important compatibility libraries like cl-lib
-  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
-(package-initialize) ;; You might already have this line
 
 (require 'js2-mode)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
@@ -127,3 +169,7 @@
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
 (setq create-lockfiles nil)
+
+(provide 'emacs)
+;;; emacs ends here
+
