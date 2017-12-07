@@ -32,7 +32,8 @@ util_packages = [
     'gitbook-cli',
     'js2coffee',
     'nesh',
-    'underscore'
+    'underscore',
+    'markdown-to-restructuredtext',
 ]
 
 testing_packages = [
@@ -50,7 +51,7 @@ dev_packages = [
     # use new coffeescript 2.x
     'coffeescript',
     'grunt-cli',
-    'grunt-init'
+    'grunt-init',
     'yarn',
     'webpack',
     'webpack-dev-middleware',
