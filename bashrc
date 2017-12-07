@@ -107,10 +107,9 @@ if [ -d ~/local/python ]; then
     export PYTHONPATH=~/local/python:$PYTHONPATH
 fi
 
-# setup rbenv if exists
-if [ -d ~/.rbenv ]; then
-    export PATH=~/.rbenv/bin:$PATH
-    eval "$(rbenv init -)"
+# setup ansible roles path
+if [ -d $HOME/local/roles ]; then
+    export ANSIBLE_ROLES_PATH=$HOME/local/roles
 fi
 
 # setup go env if exists
@@ -121,28 +120,10 @@ if [ -d $HOME/local/go ]; then
     export GOBIN=$GOROOT/bin
 fi
 
-# setup ansible roles path
-if [ -d $HOME/local/roles ]; then
-    export ANSIBLE_ROLES_PATH=$HOME/local/roles
-fi
-
-
-
-# git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
-# git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
-# sudo aptitude install git zsh libssl-dev zlib1g-dev libreadline-dev libyaml-dev
-# apt-get install autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev
-# git clone git://github.com/jf/rbenv-gemset.git $HOME/.rbenv/plugins/rbenv-gemset
-
-# setup nodejs if directory exists
-if [ -d ~/node_modules ]; then
-    export PATH=~/node_modules/.bin:$PATH
-    export PATH=./node_modules/.bin:$PATH
-fi
-
 if [ -d ~/.evm/bin ]; then
     export PATH=~/.evm/bin:$PATH
 fi
+
 # setup gems if directory exists
 #if [ -d ~/local/gems -a -z $SCHROOT_USER ]; then
 if [ -d ~/local/gems ]; then
@@ -180,8 +161,6 @@ if [ -r ~/.config/libpq-env ]; then
     echo "Setting libpq environment variables"
     source ~/.config/libpq-env
 fi
-
-
 
 if [ -r ~/.virtualenvs/main/bin/activate ]; then
     source ~/.virtualenvs/main/bin/activate
