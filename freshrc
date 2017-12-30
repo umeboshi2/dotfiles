@@ -212,9 +212,15 @@ fresh virtualenvs/predeactivate --file=~/.virtualenvs/predeactivate
 #    rbenv install 2.1.5
 #fi
 
+# On debian members of "staff" have access to /usr/local
+# This section is to install scripts that may need root
+# permissions, or needs to be in root's PATH
+if [[ `groups` =~ "staff" ]]; then
+    echo "${USER} is a staff user"
+    # btrfs-defrag script
+    fresh https://gist.github.com/b5cac22b6164b14aa967.git defrag-btrfs.sh --bin=/usr/local/bin/defrag-btrfs 
+fi
 
-# btrfs-defrag script
-fresh https://gist.github.com/b5cac22b6164b14aa967.git defrag-btrfs.sh --bin=/usr/local/bin/defrag-btrfs 
 
 
 # FIXME
