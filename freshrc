@@ -140,12 +140,13 @@ for binfile in `ls ~/.dotfiles/bin | grep -v ~$` ; do
 done
 
 # konsole color schemes
-if [ -d ~/.kde/share/apps/konsole ]; then
+konsolepath=~/.local/share/konsole
+if [ -d $konsolepath ]; then
     echo "Konsole directory located..."
     colorschemes="4-s cypress funny golden indian-red khaki orange raspberry"
     colorschemes="$colorschemes workstation zuki"
     for cs in $colorschemes; do
-	filepath=~/.kde/share/apps/konsole/$cs.colorscheme
+	filepath=$konsolepath/$cs.colorscheme
 	#fresh konsole/$cs.colorscheme --file=$filepath
 	ln -sf ~/.dotfiles/konsole/$cs.colorscheme $filepath
     done
