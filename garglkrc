@@ -143,7 +143,7 @@ tcolor  9     000000  ffffff  # User1
 tcolor 10     000000  ffffff  # User2
 
 # Colors for text grid windows
-gcolor  0     606060  ffffff  # Normal
+gcolor  0     ffdd33  373737  # Normal
 gcolor  1     606060  ffffff  # Emphasized
 gcolor  2     606060  ffffff  # Preformatted
 gcolor  3     606060  ffffff  # Header
