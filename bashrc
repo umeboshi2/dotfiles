@@ -112,6 +112,12 @@ if [ -d $HOME/local/roles ]; then
     export ANSIBLE_ROLES_PATH=$HOME/local/roles
 fi
 
+# setup rbenv
+if [ -d $HOME/.rbenv ]; then
+    export PATH=$HOME/.rbenv/bin:$PATH
+    eval "$(rbenv init -)"
+fi
+
 # setup go env if exists
 if [ -d $HOME/local/go ]; then
     export GOROOT=$HOME/local/go
