@@ -3,8 +3,14 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+# add ~/.local/bin to PATH
+if [ -d ~/.local/bin ]; then
+    export PATH=~/.local/bin:$PATH
+fi
+
 # add ~/bin to PATH
 if [ -d ~/bin ]; then
+    echo "Move ~/bin to ~/.local/bin"
     export PATH=~/bin:$PATH
 fi
 
@@ -107,10 +113,17 @@ if [ -d ~/local/python ]; then
     export PYTHONPATH=~/local/python:$PYTHONPATH
 fi
 
-# setup ansible roles path
-if [ -d $HOME/local/roles ]; then
-    export ANSIBLE_ROLES_PATH=$HOME/local/roles
+if [ -n "$(which ansible)" ]; then
+    export ANSIBLE_COW_SELECTION=random
+    
+    # setup ansible roles path
+    #if [ -d $HOME/local/roles ]; then
+    #    export ANSIBLE_ROLES_PATH=$HOME/local/roles
+    #fi
 fi
+
+
+
 
 # setup rbenv
 if [ -d $HOME/.rbenv ]; then
@@ -168,9 +181,9 @@ if [ -r ~/.config/libpq-env ]; then
     source ~/.config/libpq-env
 fi
 
-if [ -r ~/.virtualenvs/main/bin/activate ]; then
-    source ~/.virtualenvs/main/bin/activate
-fi
+#if [ -r ~/.virtualenvs/main/bin/activate ]; then
+#    source ~/.virtualenvs/main/bin/activate
+#fi
 
 # for xscreensaver -window-id $DESKTOPWINID
 export DESKTOPWINID=$(xwininfo -name "Desktop" | grep 'Window id' | sed 's/.*\(0x[0-9a-z]*\).*/\1/g')
