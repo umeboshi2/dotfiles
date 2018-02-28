@@ -10,11 +10,12 @@ for filename in .bashrc .dircolors; do
 done
 
 
-fresh freshshell/fresh bin/fresh --bin
+bdir=~/.local/bin
+fresh freshshell/fresh bin/fresh --bin=$bdir/fresh
+bfile=git-branch-status
+fresh bill-auger/$bfile $bfile --bin=$bdir/$bfile
+fresh jasoncodes/dotfiles bin/gemdiff --bin=$bdir/gem-diff
 
-fresh jasoncodes/dotfiles bin/gemdiff --bin=~/bin/gem-diff
-
-fresh bill-auger/git-branch-status git-branch-status --bin
 
 # get some dircolors
 #fresh seebi/dircolors-solarized dircolors.ansi-light --file=~/.dircolors
@@ -136,7 +137,7 @@ fresh xxdiffrc --file
 
 
 for binfile in `ls ~/.dotfiles/bin | grep -v ~$` ; do
-    fresh bin/$binfile --bin
+    fresh bin/$binfile --bin=~/.local/bin/$binfile
 done
 
 # konsole color schemes

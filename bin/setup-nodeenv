@@ -12,8 +12,8 @@ if LOCAL_DATA_PATH is None:
 
 DOTFILES_DATA = os.path.join(LOCAL_DATA_PATH, 'dotfiles')
 
-NODE_VERSION_URL = 'https://semver.io/node/resolve/6'
-_Failsafe_NODE_VERSION = '6.11.3'
+NODE_VERSION_URL = 'https://semver.io/node/resolve/8'
+_Failsafe_NODE_VERSION = '8.9.4'
 
 node_packaging = [
     'npm-check-updates',
@@ -79,7 +79,8 @@ def install_nodeenv():
         raise RuntimeError("Bad response")
     version = r.read().decode()
     print("Installing nodejs version", version)
-    cmd = ['nodeenv', '-p', '-n', version]
+    dest = os.path.expanduser('~/.local')
+    cmd = ['nodeenv', '-n', version, '--force', dest]
     subprocess.check_call(cmd)
 
 def update_npm():
@@ -92,12 +93,8 @@ def install_node_globals(plist=GLOBAL_NODE_MODULES):
 
             
 if __name__ == '__main__':
-    vpath = os.environ.get('VIRTUAL_ENV')
-    if vpath is None:
-        print("we must be in a virtualenv")
-        sys.exit(1)
-    venv = os.path.basename(vpath)
-    print("Installing node environment in {}".format(venv))
+    vpath = os.path.expanduser('~/.local')
+    print("Installing node environment in {}".format(vpath))
     if not os.path.isdir(DOTFILES_DATA):
         print("Creating", DOTFILES_DATA)
         os.makedirs(DOTFILES_DATA)

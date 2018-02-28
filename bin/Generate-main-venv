@@ -122,24 +122,12 @@ def check_minishift(version='1.8.0'):
 
             
 if __name__ == '__main__':
-    vpath = os.environ.get('VIRTUAL_ENV')
-    if vpath is None:
-        print("we must be in a virtualenv named main")
-        sys.exit(1)
-    venv = os.path.basename(vpath)
-    if venv != 'main':
-        print("we must be in a virtualenv named main")
-        sys.exit(1)
     if not os.path.isdir(DOTFILES_DATA):
         print("Creating", DOTFILES_DATA)
         os.makedirs(DOTFILES_DATA)
     if is_install_pypkgs_needed():
         print("Installing python packages...")
         install_pypkgs()
-    print("Setting up node environment...")
-    cmd = [os.path.expanduser('~/bin/setup-nodeenv')]
-    subprocess.check_call(cmd)
-    print("DOTFILES_DATA", DOTFILES_DATA)
-
-    #check_minishift()
-    
+    #print("Setting up node environment...")
+    #cmd = [os.path.expanduser('~/bin/setup-nodeenv')]
+    #subprocess.check_call(cmd)

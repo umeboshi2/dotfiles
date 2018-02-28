@@ -181,9 +181,17 @@ if [ -r ~/.config/libpq-env ]; then
     source ~/.config/libpq-env
 fi
 
-#if [ -r ~/.virtualenvs/main/bin/activate ]; then
-#    source ~/.virtualenvs/main/bin/activate
-#fi
+
+# create main python environment in ~/.local/
+if ![ -x ~/.local/bin/python3 ]; then
+    virtualenv -p python3 ~/.local/
+fi
+
+# don't use main virtualenv 
+mainVenv=there_is_no_mainVenv
+if [ -r ~/.virtualenvs/$unused/bin/activate ]; then
+    source ~/.virtualenvs/$unused/bin/activate
+fi
 
 # for xscreensaver -window-id $DESKTOPWINID
 export DESKTOPWINID=$(xwininfo -name "Desktop" | grep 'Window id' | sed 's/.*\(0x[0-9a-z]*\).*/\1/g')
