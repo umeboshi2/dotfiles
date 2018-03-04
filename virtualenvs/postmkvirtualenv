@@ -29,6 +29,9 @@ pip install --upgrade setuptools
 echo "installing wheel"
 pip install wheel
 
+echo "installing nodeenv...."
+pip install nodeenv
+
 # FIXME if $"SOMETHING_LIKE"_VENV_CLEAN exists, skip this
 echo "installing bpython, pudb, and httpie"
 pip install bpython pudb httpie
