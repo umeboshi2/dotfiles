@@ -183,7 +183,7 @@ fi
 
 
 # create main python environment in ~/.local/
-if ![ -x ~/.local/bin/python3 ]; then
+if ! [ -x ~/.local/bin/python3 ]; then
     virtualenv -p python3 ~/.local/
 fi
 
