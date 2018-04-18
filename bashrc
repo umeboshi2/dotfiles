@@ -10,12 +10,13 @@ fi
 
 # add ~/bin to PATH
 if [ -d ~/bin ]; then
-    echo "Move ~/bin to ~/.local/bin"
     export PATH=~/bin:$PATH
 fi
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
+
+echo "Move ~/bin to ~/.local/bin"
 
 # don't put duplicate lines in the history. See bash(1) for more options
 # don't overwrite GNU Midnight Commander's setting of `ignorespace'.
