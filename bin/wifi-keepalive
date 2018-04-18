@@ -1,0 +1,27 @@
+#!/usr/bin/env python
+import time
+import subprocess
+import argparse
+
+
+parser = argparse.ArgumentParser()
+# FIXME tell parser ssid is required
+parser.add_argument('ssid', default=None)
+parser.add_argument('--sleep', default=15)
+args = parser.parse_args()
+
+if args.ssid is None:
+    raise RuntimeError("No ssid given")
+
+
+def test_ping(host='google.com', timeout=2):
+    cmd = ['ping', '-w', str(timeout), host]
+    retcode = subprocess.call(cmd)
+    return not bool(retcode)
+
+
+while True:
+    if not test_ping():
+        cmd = ['nmcli', 'con', 'up', 'id', args.ssid]
+        subprocess.call(cmd)
+    time.sleep(args.sleep)
