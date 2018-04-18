@@ -183,6 +183,9 @@
 (require 'json-mode)
 (add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
 
+(require 'csharp-mode)
+(add-to-list 'auto-mode-alist '("\\.cs\\'" . csharp-mode))
+
 ;(require 'php-mode)
 ;(add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
 ;(eval-after-load 'php-mode
