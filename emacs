@@ -1,5 +1,7 @@
 ;; -*- mode: emacs-lisp -*-
 
+
+
 ;; add .emacs.d/packages to load-path
 (add-to-list 'load-path "~/.emacs.d/packages/")
 (add-to-list 'load-path "~/.emacs.d/use-pkg-packages/")
@@ -136,6 +138,10 @@
 (global-set-key "\C-xx" 'my-fix-fonts)
 (global-set-key "\C-xc" 'my-fix-fonts-mono)
 (global-set-key "\M-p" 'company-complete)
+;; pressing \C-w by mistake and not noticing can hurt
+(global-set-key "\C-w" 'self-insert-command)
+
+
 ;; start show-paren-mode
 (show-paren-mode)
 
@@ -180,6 +186,14 @@
 
 (require 'json-mode)
 (add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
+(defun my-json-hook nil
+  "hook to set indent level."
+  (setq js-indent-level 2))
+(add-hook 'json-mode-hook 'my-json-hook)
+
+
+(require 'csharp-mode)
+(add-to-list 'auto-mode-alist '("\\.cs\\'" . csharp-mode))
 
 ;(require 'php-mode)
 ;(add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
