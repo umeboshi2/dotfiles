@@ -11,6 +11,20 @@ Install:
 FRESH_LOCAL_SOURCE=umeboshi2/dotfiles bash -c "`curl -sL get.freshshell.com`"
 ```
 
+make environment
+=================
+
+new xterm (should run .bashrc)
+
+Generate-main-venv (should just install ~/.dotfiles/requirements.txt)
+
+setup-nodeenv (will setup nodejs environment)
+
+
+
+
+
+
 
 TODO
 ====
@@ -32,6 +46,21 @@ hattie, hornstone, trumpet
 
 fix travis and tox config
 make sure pyup and rtd works on both
+
+python versioning
+------------------
+
+bump2version patch
+git push && git push --tags
+
+node versioning
+----------------
+
+npm version patch
+git push && git push --tags
+npm publish
+
+
 
 
 

@@ -62,10 +62,16 @@ def is_install_pypkgs_needed():
     return install_needed
 
 
-def install_pypkgs(plist=PYTHON_PACKAGES):
+def install_pypkgs_orig(plist=PYTHON_PACKAGES):
     for pkg in plist:
         cmd = ['pip', 'install', pkg]
         subprocess.check_call(cmd)
+
+
+def install_pypkgs():
+    cmd = ['pip', 'install', '-r',
+           os.path.expanduser('~/.dotfiles/requirements.txt')]
+    subprocess.check_call(cmd)
 
 minishift_release_url = "https://github.com/minishift/minishift/releases/download/v%(version)s/minishift-%(version)s-linux-amd64.tgz"
 
