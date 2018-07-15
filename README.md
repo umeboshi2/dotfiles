@@ -31,6 +31,7 @@ python packages
 hattie, hornstone, trumpet
 
 fix travis and tox config
+make sure pyup and rtd works on both
 
 
 
