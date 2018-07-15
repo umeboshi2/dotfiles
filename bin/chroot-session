@@ -1,25 +1,28 @@
 #!/usr/bin/env python
-import os, sys
+import sys
 import subprocess
 
+
 def start_session(chroot):
-    cmd = ['schroot', '--begin-session', '--session-name=%s' % chroot,
+    cmd = ['schroot', '--begin-session', '--session-name={}'.format(chroot),
            '-p', '-c', chroot]
     subprocess.check_call(cmd)
 
+
 def stop_session(chroot):
-    cmd = ['schroot', '--end-session', '-c', 'session:%s' % chroot]
+    cmd = ['schroot', '--end-session', '-c', 'session:{}'.format(chroot)]
     subprocess.check_call(cmd)
 
+
 def run_session(chroot):
-    cmd = ['schroot', '--run-session', '-c', 'session:%s' % chroot]
+    cmd = ['schroot', '--run-session', '-c', 'session:{}'.format(chroot)]
     subprocess.check_call(cmd)
-    
+
 
 ACTIONFUN = dict(start=start_session, stop=stop_session,
                  run=run_session)
 
-# default action is run    
+# default action is run
 action = 'run'
 if len(sys.argv) > 2:
     action = sys.argv[2]
@@ -27,7 +30,7 @@ if len(sys.argv) > 2:
 chroot = sys.argv[1]
 
 if action not in ACTIONFUN:
-    raise RuntimeError, "No such action %s" % action
+    raise RuntimeError("No such action {}".format(action))
 
-print "%s chroot %s" % (action, chroot)
+print("{} chroot {}".format(action, chroot))
 ACTIONFUN[action](chroot)
