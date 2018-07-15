@@ -181,9 +181,12 @@ CHR  37;44
 # disable blinking broken symlinks, using italic white on red
 # Orphaned symlinks (blinking white on red)
 # Blink may or may not work (works on iTerm dark or light, and Putty dark)
-ORPHAN  03;37;41
+#ORPHAN  03;37;41
+ORPHAN 03;30;41
 # ... and the files that orphaned symlinks point to (blinking white on red)
 MISSING 03;37;41
+
+
 
 # files with execute permission
 EXEC 01;31  # Unix
