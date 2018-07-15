@@ -125,9 +125,9 @@ if [ -n "$(which ansible)" ]; then
 fi
 
 # setup go env if exists
-if [ -d $HOME/local/go ]; then
+if [ -d $HOME/.local/go ]; then
     echo "SETTING UP GO ENVIRONMENT"
-    export GOROOT=$HOME/local/go
+    export GOROOT=$HOME/.local/go
     export PATH=$GOROOT/bin:$PATH
     export GOPATH=$HOME/workspace/go
     export GOBIN=$GOROOT/bin
