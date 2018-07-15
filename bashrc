@@ -16,7 +16,6 @@ fi
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-echo "Move ~/bin to ~/.local/bin"
 
 # don't put duplicate lines in the history. See bash(1) for more options
 # don't overwrite GNU Midnight Commander's setting of `ignorespace'.
@@ -107,10 +106,12 @@ if [ -x /usr/games/fortune ]; then
     echo "==================================================================="
     fortune
     echo "==================================================================="
+else echo "FORTUNE NOT INSTALLED"
 fi
 
 # add ~/local/python to PYTHONPATH
 if [ -d ~/local/python ]; then
+    echo "Adding ~/local/python to PYTHONPATH"
     export PYTHONPATH=~/local/python:$PYTHONPATH
 fi
 
@@ -123,6 +124,15 @@ if [ -n "$(which ansible)" ]; then
     #fi
 fi
 
+# setup go env if exists
+if [ -d $HOME/local/go ]; then
+    echo "SETTING UP GO ENVIRONMENT"
+    export GOROOT=$HOME/local/go
+    export PATH=$GOROOT/bin:$PATH
+    export GOPATH=$HOME/workspace/go
+    export GOBIN=$GOROOT/bin
+fi
+
 
 
 
@@ -130,14 +140,6 @@ fi
 if [ -d $HOME/.rbenv ]; then
     export PATH=$HOME/.rbenv/bin:$PATH
     eval "$(rbenv init -)"
-fi
-
-# setup go env if exists
-if [ -d $HOME/local/go ]; then
-    export GOROOT=$HOME/local/go
-    export PATH=$GOROOT/bin:$PATH
-    export GOPATH=$HOME/workspace/go
-    export GOBIN=$GOROOT/bin
 fi
 
 if [ -d ~/.evm/bin ]; then
@@ -153,7 +155,6 @@ if [ -d ~/local/gems ]; then
     fi
 fi
 
-export EDITOR=/usr/local/bin/editor
 
 if [ -x /usr/bin/keychain ]; then
     eval `keychain --eval id_rsa id_dsa`
@@ -174,7 +175,11 @@ fi
 
 if [ -r /etc/redhat-release ]; then
     echo "redhat system, using most for PAGER"
-    export PAGER=/usr/local/bin/most
+    if ! [ -x /usr/local/bin/most ]; then
+	echo "WARNING /usr/local/bin/most not found!"
+    else
+	export PAGER=/usr/local/bin/most
+    fi
 fi
 
 if [ -r ~/.config/libpq-env ]; then
@@ -185,14 +190,18 @@ fi
 
 # create main python environment in ~/.local/
 if ! [ -x ~/.local/bin/python3 ]; then
+    echo "Creating main virtualenv in ~/.local"
     virtualenv -p python3 ~/.local/
 fi
 
-# don't use main virtualenv 
-mainVenv=there_is_no_mainVenv
-if [ -r ~/.virtualenvs/$unused/bin/activate ]; then
-    source ~/.virtualenvs/$unused/bin/activate
+
+if [ -x /usr/local/bin/editor ]; then
+    echo "setting EDITOR=/usr/local/bin/editor"
+    export EDITOR=/usr/local/bin/editor
+else
+    echo "WARNING /usr/local/bin/editor not found"
 fi
+
 
 # for xscreensaver -window-id $DESKTOPWINID
 export DESKTOPWINID=$(xwininfo -name "Desktop" | grep 'Window id' | sed 's/.*\(0x[0-9a-z]*\).*/\1/g')
