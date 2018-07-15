@@ -2,7 +2,7 @@
 
 # clean up files from /etc/skel
 # needed for new installs.
-for filename in .bashrc .dircolors; do
+for filename in .bashrc .dircolors .profile; do
     if ! [ -L ~/$filename ] && [ -f ~/$filename ]; then
 	echo "Creating backup of ~/$filename"
 	mv ~/$filename ~/$filename.bak
