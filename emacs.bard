@@ -79,6 +79,10 @@
  ;; If there is more than one, they won't work right.
  '(line-number-mode t)
  '(load-home-init-file t t)
+ ;;'(x-select-enable-clipboard-manager nil)
+ '(select-enable-clipboard nil)
+ '(select-enable-primary t)
+ '(mouse-drag-copy-region t)
  '(package-selected-packages (quote (imenu-anywhere)))
  '(python-mode-hook (quote (imenu-add-menubar-index)) t)
  '(show-paren-style (quote expression)))
