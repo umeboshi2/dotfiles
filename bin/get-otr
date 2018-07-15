@@ -1,0 +1,50 @@
+#!/usr/bin/env python
+import os
+# import json
+import subprocess
+import urllib.parse
+# import robobrowser
+
+from hornstone.scrapers.base import BaseCollector
+import argparse
+
+
+parser = argparse.ArgumentParser(description='get otr')
+parser.add_argument('--suffix', dest='suffix', default='mp3',
+                    help="add files with this extension")
+parser.add_argument('url',
+                    help="url to get")
+
+
+args = parser.parse_args()
+print("ARGS--->", args)
+
+if __name__ == "__main__":
+    bc = BaseCollector()
+    bc.set_url(args.url)
+    bc.retrieve_page()
+    dllinks = list()
+    dldict = dict()
+    prefix = '/download/'
+    suffix = '.{}'.format(args.suffix)
+    for link in bc.soup.find_all('a'):
+        href = link.get('href')
+        if href is not None:
+            if href.startswith(prefix) and href.endswith(suffix):
+                filename = href[len(prefix):]
+                filename = urllib.parse.unquote(filename)
+                dldict[filename] = href
+    files = list(dldict.keys())
+    files.sort()
+    # import random ; random.shuffle(files)
+    for fname in files:
+        if not os.path.exists(fname):
+            if os.path.islink(fname):
+                print("Skipping", fname)
+                continue
+            print("Adding", fname)
+            url = 'https://archive.org' + dldict[fname]
+            cmd = ['git-annex', 'addurl', '--relaxed', '--file', fname, url]
+            subprocess.check_call(cmd)
+        else:
+            print("Skipping", fname)

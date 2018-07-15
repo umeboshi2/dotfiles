@@ -28,3 +28,6 @@ alias dquilt="quilt --quiltrc=${HOME}/.quiltrc-dpkg"
 
 alias grepc="grep --color=always"
 
+#https://github.com/mgrouchy/dotfiles/blob/master/.zshalias#L31
+alias pipup='pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs pip install -U'
+
