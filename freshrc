@@ -222,7 +222,8 @@ fresh virtualenvs/predeactivate --file=~/.virtualenvs/predeactivate
 if [[ `groups` =~ "staff" ]]; then
     echo "${USER} is a staff user"
     # btrfs-defrag script
-    fresh https://gist.github.com/b5cac22b6164b14aa967.git defrag-btrfs.sh --bin=/usr/local/bin/defrag-btrfs 
+    fresh https://gist.github.com/b5cac22b6164b14aa967.git defrag-btrfs.sh --bin=/usr/local/bin/defrag-btrfs
+    fresh emacsclient-wrapper --bin=/usr/local/bin/editor
 fi
 
 
