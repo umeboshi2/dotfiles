@@ -60,6 +60,12 @@ libsdl2-mixer-dev
 libsdl2-net-dev 
 libsdl2-ttf-dev 
 
+### useful libs
+
+libncurses5-dev
+libreadline-dev
+
+
 ### others
 
 many libdevels can be installed with ```apt-get build-dep pkgname```
