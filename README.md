@@ -28,7 +28,7 @@ iputils-ping - ping command
 
 
 
-##libdevel packages
+## libdevel packages
 
 
 These are for python packages.  Wheels are probably being used
@@ -36,14 +36,24 @@ anyway, but these packages help with: lxml, Pillow, and psycopg2
 
 for python install python3-dev first (python-dev if you need 2.7)
 
-libpq-dev
+
+### Pillow deps
 libpng-dev (older libpng12-dev)
 libfreetype6-dev
-libxml2-dev
-libxslt1-dev
-libssl-dev
 libjpeg-dev
 liblcms2-dev
+
+### lxml deps
+libxml2-dev
+libxslt1-dev
+zlib1g-dev
+
+
+libssl-dev
+
+### psycopg2 deps
+libpq-dev
+
 
 ### sdl 1.2
 
