@@ -22,7 +22,7 @@ fresh jasoncodes/dotfiles bin/gemdiff --bin=$bdir/gem-diff
 fresh dircolors --file
 
 if [[ "$(hostname -s)" == "tron" ]]; then
-    fresh emacs.tron --file=~/.emacs
+    fresh emacs.bard --file=~/.emacs
 elif [[ "$(hostname -s)" == "bard" ]]; then
     fresh emacs.bard --file=~/.emacs
 else
