@@ -20,19 +20,6 @@ do
     ln -s $LIB_SYSTEM_PATH/$LIB $LIB_VIRTUALENV_PATH/$LIB 
 done
 
-echo "upgrading pip"
-pip install --upgrade pip
-
-echo "upgrading setuptools"
-pip install --upgrade setuptools
-
-echo "installing wheel"
-pip install wheel
-
-echo "installing nodeenv...."
-pip install nodeenv
-
-# FIXME if $"SOMETHING_LIKE"_VENV_CLEAN exists, skip this
-echo "installing bpython, pudb, and httpie"
-pip install bpython pudb httpie
-
+echo "Upgrading setuptools, pip, wheel"
+pip install --upgrade setuptools pip wheel
+echo "Done."
