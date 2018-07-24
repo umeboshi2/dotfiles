@@ -23,3 +23,8 @@ done
 echo "Upgrading setuptools, pip, wheel"
 pip install --upgrade setuptools pip wheel
 echo "Done."
+
+# be sure to install bpython in virtualenv
+# to make a good sys.path
+echo "Installing bpython and pudb"
+pip install bpython pudb
