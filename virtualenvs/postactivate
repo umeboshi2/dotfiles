@@ -1,10 +1,10 @@
 #!/bin/bash
 # This hook is run after every virtualenv is activated.
-export WHEELPATH=~/.virtualenvs/wheelhouse
 
-alias pipwheel="pip install --use-wheel --no-index --find-links=$WHEELPATH"
-alias mkwheel="pip wheel --wheel-dir=$WHEELPATH"
-alias lswheelhouse="ls $WHEELPATH"
+#export WHEELPATH=~/.virtualenvs/wheelhouse
+#alias pipwheel="pip install --use-wheel --no-index --find-links=$WHEELPATH"
+#alias mkwheel="pip wheel --wheel-dir=$WHEELPATH"
+#alias lswheelhouse="ls $WHEELPATH"
 
 #https://github.com/mgrouchy/dotfiles/blob/master/.zshalias#L31
 alias pipup='pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs pip install -U'
