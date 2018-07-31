@@ -30,7 +30,7 @@ else
 fi
 
 elpackage_path=~/.emacs.d/packages
-for elp in mmm-mako.el debian-startup.el; do
+for elp in debian-startup.el; do
     fresh emacs.d/packages/$elp --file=$elpackage_path/$elp
 done
 
@@ -48,6 +48,8 @@ mode=yaml-mode
 fresh yoshiki/$mode $mode.el --file=$elpackage_path/$mode.el
 mode=jinja2-mode
 fresh paradoxxxzero/$mode $mode.el --file=$elpackage_path/$mode.el
+mode=nijinja2-mode
+fresh umeboshi2/$mode $mode.el --file=$elpackage_path/$mode.el
 mode=nginx-mode
 fresh ajc/$mode $mode.el --file=$elpackage_path/$mode.el
 mode=sws-mode
@@ -56,6 +58,17 @@ mode=jade-mode
 fresh brianc/$mode $mode.el --file=$elpackage_path/$mode.el
 mode=csharp-mode
 fresh josteink/$mode $mode.el --file=$elpackage_path/$mode.el
+
+# mmm-mako mode
+fresh purcell/mmm-mode mmm-auto.el --file=$elpackage_path/mmm-auto.el
+fresh purcell/mmm-mode mmm-class.el --file=$elpackage_path/mmm-class.el
+fresh purcell/mmm-mode mmm-compat.el --file=$elpackage_path/mmm-compat.el
+fresh purcell/mmm-mode mmm-mode.el --file=$elpackage_path/mmm-mode.el
+fresh purcell/mmm-mode mmm-region.el --file=$elpackage_path/mmm-region.el
+fresh purcell/mmm-mode mmm-univ.el --file=$elpackage_path/mmm-univ.el
+fresh purcell/mmm-mode mmm-utils.el --file=$elpackage_path/mmm-utils.el
+fresh purcell/mmm-mode mmm-vars.el --file=$elpackage_path/mmm-vars.el
+fresh umeboshi2/mmm-mako mmm-mako.el --file=$elpackage_path/mmm-mako.el
 
 # JSON mode
 pkg=json-reformat
