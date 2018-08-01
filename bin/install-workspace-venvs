@@ -1,0 +1,17 @@
+#!/bin/bash
+# import mkvirtualenv https://stackoverflow.com/a/13112193/1869821
+source `which virtualenvwrapper.sh`
+cd $HOME
+for PROJECT in hornstone hattie trumpet netinstauto
+do
+    cd workspace/$PROJECT
+    echo "Setting up $PROJECT"
+    mkvirtualenv -a `pwd` $PROJECT
+    pip install -e .
+    if [ -r requirements_dev.txt ]; then
+	pip install -r requirements_dev.txt
+    fi
+    deactivate
+    cd $HOME
+    echo "$PROJECT virtualenv setup"
+done
