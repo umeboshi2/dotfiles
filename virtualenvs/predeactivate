@@ -1,9 +1,9 @@
 #!/bin/bash
 # This hook is run before every virtualenv is deactivated.
 
-unset WHEELPATH
-unalias pipwheel
-unalias mkwheel
-unalias lswheelhouse
-unalias pipup
+#unset WHEELPATH
+#unalias pipwheel
+#unalias mkwheel
+#unalias lswheelhouse
+#unalias pipup
 
