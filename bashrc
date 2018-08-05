@@ -116,12 +116,12 @@ if [ -d ~/local/python ]; then
 fi
 
 if [ -n "$(which ansible)" ]; then
-    export ANSIBLE_COW_SELECTION=random
+    #export ANSIBLE_COW_SELECTION=random
     
     # setup ansible roles path
-    #if [ -d $HOME/local/roles ]; then
-    #    export ANSIBLE_ROLES_PATH=$HOME/local/roles
-    #fi
+    if [ -d $HOME/local/roles ]; then
+        export ANSIBLE_ROLES_PATH=$HOME/local/roles
+    fi
 fi
 
 # setup go env if exists
@@ -157,6 +157,9 @@ fi
 
 
 if [ -x /usr/bin/keychain ]; then
+#    if [ -x /usr/bin/fake-ssh-askpass ]; then
+#	export SSH_ASKPASS=/usr/bin/ssh-askpass
+#    fi
     eval `keychain --eval id_rsa id_dsa`
 fi
 
@@ -206,3 +209,6 @@ fi
 # for xscreensaver -window-id $DESKTOPWINID
 export DESKTOPWINID=$(xwininfo -name "Desktop" | grep 'Window id' | sed 's/.*\(0x[0-9a-z]*\).*/\1/g')
 
+# debian exports
+export DEBEMAIL="joseph.rawson.works@gmail.com"
+export DEBFULLNAME="Joseph Rawson"
