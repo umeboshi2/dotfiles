@@ -146,6 +146,7 @@ fresh bash_aliases --file
 fresh coffeelint.json --file
 fresh devscripts --file
 fresh garglkrc --file
+fresh gbp.conf --file
 fresh gitignore_global --file
 fresh pbuilderrc --file
 fresh profile --file
