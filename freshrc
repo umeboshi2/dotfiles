@@ -216,7 +216,7 @@ fi
 # yet allow for mods from desktop manager?
 xfconf=~/.config/xfce4/xfconf
 perchannel=$xfconf/xfce-perchannel-xml
-fresh xfce4/xfce4-keyboard-shortcuts.xml --file=$perchannel/xfce4-keyboard-shortcuts.xml
+#fresh xfce4/xfce4-keyboard-shortcuts.xml --file=$perchannel/xfce4-keyboard-shortcuts.xml
 
 # hooks for virtualenvwrapper
 fresh virtualenvs/postmkvirtualenv --file=~/.virtualenvs/postmkvirtualenv
