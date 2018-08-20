@@ -9,6 +9,7 @@ APTCACHE=/var/cache/apt/archives
 #BUILDRESULT=/var/cache/pbuilder/result/
 BUILDRESULT=../
 EXTRAPACKAGES="ccache lintian libeatmydata1"
+export http_proxy=http://localhost:3142/
 
 # enable to use libeatmydata1 for pbuilder
 #export LD_PRELOAD=${LD_PRELOAD+$LD_PRELOAD:}libeatmydata.so
