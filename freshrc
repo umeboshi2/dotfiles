@@ -58,6 +58,8 @@ mode=jade-mode
 fresh brianc/$mode $mode.el --file=$elpackage_path/$mode.el
 mode=csharp-mode
 fresh josteink/$mode $mode.el --file=$elpackage_path/$mode.el
+mode=dockerfile-mode 
+fresh spotify/$mode $mode.el --file=$elpackage_path/$mode.el
 
 # mmm-mako mode
 fresh purcell/mmm-mode mmm-auto.el --file=$elpackage_path/mmm-auto.el
