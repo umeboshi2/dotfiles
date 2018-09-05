@@ -142,6 +142,13 @@ if [ -d $HOME/.rbenv ]; then
     eval "$(rbenv init -)"
 fi
 
+# setup pyenv
+if [ -d $HOME/.pyenv ]; then
+    export PYENV_ROOT=$HOME/.pyenv
+    export PATH=$HOME/.pyenv/bin:$PATH
+    eval "$(pyenv init -)"
+fi
+
 if [ -d ~/.evm/bin ]; then
     export PATH=~/.evm/bin:$PATH
 fi
