@@ -36,6 +36,10 @@ anyway, but these packages help with: lxml, Pillow, and psycopg2
 
 for python install python3-dev first (python-dev if you need 2.7)
 
+### Build with pyenv 
+
+apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev
+
 
 ### Pillow deps
 libpng-dev (older libpng12-dev)
@@ -82,6 +86,16 @@ many libdevels can be installed with ```apt-get build-dep pkgname```
 
 
 
+
+## debian auto install
+
+- https://wiki.debian.org/DebianInstaller/Preseed
+
+- https://www.debian.org/releases/stable/i386/apbs02.html.en
+
+- https://wiki.debian.org/DebianInstaller/Modify/CD
+
+- packages: xorriso (hybrid image maker), isolinux
 
 
 
@@ -137,6 +151,8 @@ count inotify instances per process
 https://unix.stackexchange.com/a/15549
 for foo in /proc/*/fd/*; do readlink -f $foo; done | grep inotify | sort | uniq -c | sort -nr
 
+# python set interactive at code point
+import code ;code.interact(local=dict(globals(), **locals()))
 
 
 lorentz contraction
