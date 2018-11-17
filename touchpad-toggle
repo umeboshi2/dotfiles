@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import os
 import subprocess
 
@@ -37,6 +37,15 @@ def toggle_touchpad():
     new_setting = toggle_touchpadoff_value(get_touchpad_off(settings))
     cmd = ['synclient', 'TouchpadOff={}'.format(new_setting)]
     subprocess.run(cmd)
+    if new_setting:
+        msg = "Touchpad Disabled"
+        icon = "/usr/share/emoticons/kde4/thumbs_down.png"
+    else:
+        msg = "Touchpad Enabled"
+        icon = "/usr/share/emoticons/kde4/lightbulb.png"
+    icmd = ['zenity', '--notification', '--window-icon={}'.format(icon),
+            '--text={}'.format(msg)]
+    subprocess.run(icmd)
 
 
 if __name__ == "__main__":
