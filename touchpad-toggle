@@ -1,0 +1,38 @@
+#!/usr/bin/env python
+import os
+import subprocess
+
+def list_settings():
+    cmd = ['synclient', '-l']
+    completed = subprocess.run(cmd, stdout=subprocess.PIPE,
+                               universal_newlines=True)
+    stdout = completed.stdout
+    settings = [l.strip() for l in stdout.split(os.linesep)]
+    return settings
+
+def get_touchpad_off(settings):
+    tpline = ''
+    for line in settings:
+        if line.startswith('TouchpadOff'):
+            tpline = line
+            break
+    if not tpline:
+        raise RuntimeError("Couldn't find TouchpadOff setting.")
+    toff = [p.strip() for p in tpline.split('=')][1]
+    return int(toff)
+
+def toggle_touchpadoff_value(tpoff):
+    if tpoff:
+        new_setting = 0
+    else:
+        new_setting = 1
+    return new_setting
+
+def toggle_touchpad():
+    settings = list_settings()
+    new_setting = toggle_touchpadoff_value(get_touchpad_off(settings))
+    cmd = ['synclient', 'TouchpadOff={}'.format(new_setting)]
+    subprocess.run(cmd)
+
+if __name__ == "__main__":
+    toggle_touchpad()
