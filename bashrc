@@ -147,6 +147,9 @@ if [ -d $HOME/.pyenv ]; then
     export PYENV_ROOT=$HOME/.pyenv
     export PATH=$HOME/.pyenv/bin:$PATH
     eval "$(pyenv init -)"
+    if [ -d $HOME/.pyenv/plugins/pyenv-virtualenvwrapper ]; then
+	export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
+    fi
 fi
 
 if [ -d ~/.evm/bin ]; then
