@@ -10,6 +10,7 @@ fi
 
 # add ~/bin to PATH
 if [ -d ~/bin ]; then
+    echo "WARNING: ~/bin detected"
     export PATH=~/bin:$PATH
 fi
 
@@ -151,6 +152,13 @@ if [ -d $HOME/.pyenv ]; then
 	export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
     fi
 fi
+
+# use python3 virtualenvwrapper by default
+# for py2 -> mkvirtualenv [-a `pwd`] -p /usr/bin/python2 vname
+# https://stackoverflow.com/a/33239250/1869821
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+
+
 
 if [ -d ~/.evm/bin ]; then
     export PATH=~/.evm/bin:$PATH
