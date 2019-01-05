@@ -1,26 +1,32 @@
 #!/usr/bin/env python
-from __future__ import absolute_import, division, print_function, unicode_literals
-import os, sys
+from __future__ import absolute_import, division, print_function
+from __future__ import unicode_literals
+import os
+# import sys
 import subprocess
-import tarfile
-from optparse import OptionParser
+# import tarfile
+# from optparse import OptionParser
 from urllib.request import urlopen
 
 LOCAL_DATA_PATH = os.environ.get('XDG_DATA_HOME')
 if LOCAL_DATA_PATH is None:
     LOCAL_DATA_PATH = os.path.expanduser('~/.local/share')
     print("NO XDG_DATA_HOME defined.. Using{}".format(LOCAL_DATA_PATH))
-    
+
 
 DOTFILES_DATA = os.path.join(LOCAL_DATA_PATH, 'dotfiles')
 
-NODE_VERSION_URL = 'https://semver.io/node/resolve/8'
-_Failsafe_NODE_VERSION = '8.11.3'
+# NODE_VERSION_URL = 'https://semver.io/node/resolve/8'
+# _Failsafe_NODE_VERSION = '8.11.3'
+
+NODE_VERSION_URL = 'https://semver.io/node/resolve/10'
+_Failsafe_NODE_VERSION = '10.14.1'
 
 node_packaging = [
     'npm-check-updates',
     'npm',
-    'local-npm',
+    # local-npm doesn't build with node v10.14.1
+    # 'local-npm',
 ]
 
 yo_packages = [
@@ -44,8 +50,20 @@ testing_packages = [
     'phantomjs-prebuilt',
 ]
 
-
 dev_packages = [
+    'amber-cli',
+    'electron',
+    'gulp',
+    'bower',
+    # use new coffeescript 2.x
+    'coffeescript',
+    'grunt-cli',
+    'grunt-init',
+    'yarn',
+]
+
+# the dev packages used to include webpack stuff
+dev_packages_orig = [
     'amber-cli',
     'electron',
     'gulp',
@@ -76,6 +94,7 @@ print(len(GLOBAL_NODE_MODULES), "GLOBAL_NODE_MODULES")
 
 
 def install_nodeenv():
+    print("Resolving from {}".format(NODE_VERSION_URL))
     r = urlopen(NODE_VERSION_URL)
     if r.getcode() != 200:
         raise RuntimeError("Bad response")
@@ -85,15 +104,17 @@ def install_nodeenv():
     cmd = ['nodeenv', '-n', version, '--force', dest]
     subprocess.check_call(cmd)
 
+
 def update_npm():
     cmd = ['npm', 'up', '-g', 'npm']
     subprocess.check_call(cmd)
+
 
 def install_node_globals(plist=GLOBAL_NODE_MODULES):
     cmd = ['npm', 'install', '-g'] + plist
     subprocess.check_call(cmd)
 
-            
+
 if __name__ == '__main__':
     vpath = os.path.expanduser('~/.local')
     print("Installing node environment in {}".format(vpath))
@@ -119,5 +140,3 @@ if __name__ == '__main__':
         print("INSTALLING GLOBAL NODE MODULES")
         install_node_globals()
     print("DOTFILES_DATA", DOTFILES_DATA)
-
-    
