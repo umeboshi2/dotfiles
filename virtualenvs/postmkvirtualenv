@@ -17,6 +17,7 @@ LIB_SYSTEM_PATH=$(${VAR[-1]} -c "$GET_PYTHON_LIB_CMD")
 
 for LIB in ${LIBS[@]}
 do
+    echo "Linking $LIB"
     ln -s $LIB_SYSTEM_PATH/$LIB $LIB_VIRTUALENV_PATH/$LIB 
 done
 
@@ -25,12 +26,11 @@ pip install --upgrade setuptools pip wheel
 echo "Done."
 
 
-#echo "Installing virtualenvwrapper"
-#pip install --upgrade virtualenvwrapper
-#echo "Done."
-
-# be sure to install bpython in virtualenv
-# to make a good sys.path
-echo "Installing bpython and pudb"
-pip install bpython pudb
+# https://stackoverflow.com/a/13864829/1869821 
+if [ -z ${CLEAN_VIRTUALENV+x} ]; then
+    # be sure to install bpython in virtualenv
+    # to make a good sys.path
+    echo "Installing bpython and pudb"
+    pip install bpython pudb
+fi
 
