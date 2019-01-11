@@ -230,3 +230,7 @@ export DESKTOPWINID=$(xwininfo -name "Desktop" | grep 'Window id' | sed 's/.*\(0
 # debian exports
 export DEBEMAIL="joseph.rawson.works@gmail.com"
 export DEBFULLNAME="Joseph Rawson"
+
+# vagrant exports
+# disable checking for box updates
+export VAGRANT_BOX_UPDATE_CHECK_DISABLE=1
