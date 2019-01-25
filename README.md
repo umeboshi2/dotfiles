@@ -103,8 +103,12 @@ many libdevels can be installed with ```apt-get build-dep pkgname```
 
 # TODO
 
+- try using doom-modeline
 
-# workspace
+
+# Other notes and things to remember
+
+## workspace
 
 Workspace is in ~/workspace
 
@@ -113,19 +117,20 @@ Workspace is in ~/workspace
 forked cookiecutter should use "use-yaml" branch
 
 
-# python packages
+## python packages
 
-hattie, hornstone, trumpet
+hattie, hornstone, trumpet, netinstauto
 
 fix travis and tox config
-make sure pyup and rtd works on both
+make sure pyup and rtd works on each
 
-# python versioning
+
+## python versioning
 
 bump2version patch
 git push && git push --tags
 
-# node versioning
+## node versioning
 
 npm version patch
 git push && git push --tags
@@ -135,7 +140,7 @@ npm publish
 
 
 
-# /usr/local/bin
+## /usr/local/bin
 
 - docker-machine
 
