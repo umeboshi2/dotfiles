@@ -25,7 +25,7 @@ echo "Upgrading setuptools, pip, wheel"
 pip install --upgrade setuptools pip wheel
 echo "Done."
 
-
+# export CLEAN_VIRTUALENV=1 to create a "clean" virtualenv
 # https://stackoverflow.com/a/13864829/1869821 
 if [ -z ${CLEAN_VIRTUALENV+x} ]; then
     # be sure to install bpython in virtualenv
