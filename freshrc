@@ -153,6 +153,7 @@ fresh gitignore_global --file
 fresh pbuilderrc --file
 fresh profile --file
 fresh quiltrc-dpkg --file
+fresh sbuildrc --file
 fresh xsessionrc --file
 fresh xxdiffrc --file
 
