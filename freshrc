@@ -125,7 +125,7 @@ fresh $goodies emacs.d/site-lisp --file=~/.emacs.d/site-lisp/
 
 mode=php-mode
 fresh ejmr/$mode $mode.el --file=$elpackage_path/$mode.el
-fresh ejmr/$mode skeleton/php-ext.el --file=$elpackage_path/php-ext.el
+#fresh ejmr/$mode skeleton/php-ext.el --file=$elpackage_path/php-ext.el
 
 
 
