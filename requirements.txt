@@ -42,6 +42,8 @@ PasteDeploy==2.0.1
 pbr==5.2.1
 pexpect==4.7.0
 pickleshare==0.7.5
+pip==19.1.1
+pipenv==2018.11.26
 plaster==1.0
 plaster-pastedeploy==0.7
 poyo==0.4.2
@@ -63,6 +65,7 @@ rarfile==3.0
 repoze.lru==0.7
 requests==2.22.0
 rope==0.14.0
+setuptools==41.0.1
 simplegeneric==0.8.1
 six==1.12.0
 smmap2==2.0.5
@@ -79,6 +82,7 @@ virtualenv-clone==0.5.3
 virtualenvwrapper==4.8.4
 wcwidth==0.1.7
 WebOb==1.8.5
+wheel==0.33.4
 whichcraft==0.5.2
 wrapt==1.11.1
 yapf==0.27.0
