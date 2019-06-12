@@ -112,6 +112,8 @@ fi
 
 # add ~/local/python to PYTHONPATH
 if [ -d ~/local/python ]; then
+    echo "WARNING: ~/local/python should no longer be used."
+    echo "WARNING: use ~/.local instead."
     echo "Adding ~/local/python to PYTHONPATH"
     export PYTHONPATH=~/local/python:$PYTHONPATH
 fi
@@ -159,9 +161,15 @@ fi
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 
 
-
+# setup evm (not needed since emacs25 avail in debian).
 if [ -d ~/.evm/bin ]; then
+    echo "WARNING: evm has been found, but possible not needed anymore."
     export PATH=~/.evm/bin:$PATH
+fi
+
+# Setup cask
+if [ -d ~/.cask/bin ]; then
+    export PATH=~/.cask/bin:$PATH
 fi
 
 # setup gems if directory exists
