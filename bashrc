@@ -4,14 +4,14 @@
 # for examples
 
 # add ~/.local/bin to PATH
-if [ -d ~/.local/bin ]; then
-    export PATH=~/.local/bin:$PATH
+if [ -d $HOME/.local/bin ]; then
+    export PATH=$HOME/.local/bin:$PATH
 fi
 
 # add ~/bin to PATH
-if [ -d ~/bin ]; then
+if [ -d $HOME/bin ]; then
     echo "WARNING: ~/bin detected"
-    export PATH=~/bin:$PATH
+    export PATH=$HOME/bin:$PATH
 fi
 
 # If not running interactively, don't do anything
@@ -25,7 +25,7 @@ export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
 export HISTCONTROL=ignoreboth
 
 # history file based on tty
-export HISTFILE=~/.bash_histories`tty`
+export HISTFILE=$HOME/.bash_histories`tty`
 if ! [ -d `dirname ${HISTFILE}` ]; then
     echo "Creating directory for ${HISTFILE}"
     mkdir -p `dirname ${HISTFILE}`
@@ -91,8 +91,8 @@ esac
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+if [ -f $HOME/.bash_aliases ]; then
+    . $HOME/.bash_aliases
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -111,11 +111,11 @@ else echo "FORTUNE NOT INSTALLED"
 fi
 
 # add ~/local/python to PYTHONPATH
-if [ -d ~/local/python ]; then
+if [ -d $HOME/local/python ]; then
     echo "WARNING: ~/local/python should no longer be used."
     echo "WARNING: use ~/.local instead."
     echo "Adding ~/local/python to PYTHONPATH"
-    export PYTHONPATH=~/local/python:$PYTHONPATH
+    export PYTHONPATH=$HOME/local/python:$PYTHONPATH
 fi
 
 if [ -n "$(which ansible)" ]; then
@@ -162,22 +162,22 @@ export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 
 
 # setup evm (not needed since emacs25 avail in debian).
-if [ -d ~/.evm/bin ]; then
+if [ -d $HOME/.evm/bin ]; then
     echo "WARNING: evm has been found, but possible not needed anymore."
-    export PATH=~/.evm/bin:$PATH
+    export PATH=$HOME/.evm/bin:$PATH
 fi
 
 # Setup cask
-if [ -d ~/.cask/bin ]; then
-    export PATH=~/.cask/bin:$PATH
+if [ -d $HOME/.cask/bin ]; then
+    export PATH=$HOME/.cask/bin:$PATH
 fi
 
 # setup gems if directory exists
 #if [ -d ~/local/gems -a -z $SCHROOT_USER ]; then
-if [ -d ~/local/gems ]; then
+if [ -d $HOME/local/gems ]; then
     if [ -z $SCHROOT_USER ]; then
-	export GEM_HOME=~/local/gems
-	export PATH=~/local/gems/bin:$PATH
+	export GEM_HOME=$HOME/local/gems
+	export PATH=$HOME/local/gems/bin:$PATH
     fi
 fi
 
@@ -189,8 +189,8 @@ if [ -x /usr/bin/keychain ]; then
     eval `keychain --eval id_rsa id_dsa`
 fi
 
-if [ -r ~/.fresh/build/shell.sh ]; then
-    source ~/.fresh/build/shell.sh
+if [ -r $HOME/.fresh/build/shell.sh ]; then
+    source $HOME/.fresh/build/shell.sh
 fi
 
 if [[ "$(hostname -s)" == "bard" ]]; then
@@ -198,29 +198,22 @@ if [[ "$(hostname -s)" == "bard" ]]; then
 fi
 
 # set coffeelint config
-if [ -r ~/.coffeelint.json ]; then
+if [ -r $HOME/.coffeelint.json ]; then
     export COFFEELINT_CONFIG=$HOME/.coffeelint.json
 fi
 
-if [ -r /etc/redhat-release ]; then
-    echo "redhat system, using most for PAGER"
-    if ! [ -x /usr/local/bin/most ]; then
-	echo "WARNING /usr/local/bin/most not found!"
-    else
-	export PAGER=/usr/local/bin/most
-    fi
-fi
-
-if [ -r ~/.config/libpq-env ]; then
+if [ -r $HOME/.config/libpq-env ]; then
     echo "Setting libpq environment variables"
-    source ~/.config/libpq-env
+    source $HOME/.config/libpq-env
 fi
 
 
 # create main python environment in ~/.local/
-if ! [ -x ~/.local/bin/python3 ]; then
-    echo "Creating main virtualenv in ~/.local"
-    virtualenv -p python3 ~/.local/
+if ! [ -x $HOME/.local/bin/python3 ]; then
+    echo "Creating main virtualenv in $HOME/.local"
+    # use system python, in case pyenv has python3
+    # set to a different version
+    virtualenv -p /usr/bin/python3 $HOME/.local/
 fi
 
 
@@ -242,3 +235,20 @@ export DEBFULLNAME="Joseph Rawson"
 # vagrant exports
 # disable checking for box updates
 export VAGRANT_BOX_UPDATE_CHECK_DISABLE=1
+
+
+# skip package installs by default for pip-upgrade
+# and only modify the requirements file(s).
+if ! [ -x $HOME/.local/bin/pip-upgrade ]; then
+    export PIP_UPGRADER_SKIP_PACKAGE_INSTALLATION=1
+fi
+
+if [ -r /etc/redhat-release ]; then
+    echo "redhat system, using most for PAGER"
+    if ! [ -x /usr/local/bin/most ]; then
+	echo "WARNING /usr/local/bin/most not found!"
+    else
+	export PAGER=/usr/local/bin/most
+    fi
+fi
+
