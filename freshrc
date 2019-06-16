@@ -146,6 +146,7 @@ fi
 
 fresh bashrc --file
 fresh bash_aliases --file
+fresh bash-python-env.sh --file
 fresh coffeelint.json --file
 fresh devscripts --file
 fresh garglkrc --file
