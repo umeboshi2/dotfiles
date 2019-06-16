@@ -32,6 +32,9 @@ fi
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 
 if [ -x $HOME/.local/bin/pipenv ]; then
+    echo "pipenv lock downloads too many wheels"
+    echo "keep checking this issue until fixed"
+    echo "https://github.com/pypa/pipenv/issues/2284"
     #export PATH=$HOME/.local/bin:$PATH
     export PIPENV_VENV_IN_PROJECT=1
 fi
