@@ -46,7 +46,7 @@ pbr==5.2.1
 pexpect==4.7.0
 pickleshare==0.7.5
 pip==19.1.1
-pip-upgrader==1.4.12
+-e git+https://github.com/umeboshi2/pip-upgrader.git@087319fa5e9f0a8d1e84dbe3d8c6b72a964dc132#egg=pip_upgrader
 pipenv==2018.11.26
 plaster==1.0
 plaster-pastedeploy==0.7
