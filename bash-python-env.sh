@@ -50,12 +50,15 @@ fi
 
 # skip package installs by default for pip-upgrade
 # and only modify the requirements file(s).
-if ! [ -x $HOME/.local/bin/pip-upgrade ]; then
+if [ -x $HOME/.local/bin/pip-upgrade ]; then
     export PIP_UPGRADER_SKIP_PACKAGE_INSTALLATION=1
 fi
 
+
+# FIXME: not sure if this is needed or if ~/.pip/pip.conf is good enough
 if [[ "$(hostname -s)" == "bard" ]]; then
     export PIP_INDEX_URL=http://localhost:4040/root/pypi/+simple/
 else
     export PIP_INDEX_URL=http://bard:4040/root/pypi/+simple/
 fi
+
