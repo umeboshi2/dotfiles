@@ -75,9 +75,6 @@ dev_packages_orig = [
     'yarn',
     'webpack',
     'webpack-dev-middleware',
-    # FIXME we are having problems with newer
-    # dev servers.
-    #'webpack-dev-server@2.4.5'
     'webpack-dev-server'
 ]
 
