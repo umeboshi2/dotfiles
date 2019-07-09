@@ -62,3 +62,5 @@ else
     export PIP_INDEX_URL=http://bard:4040/root/pypi/+simple/
 fi
 
+# FIXME: make this conditional
+export BETTER_EXCEPTIONS=1
