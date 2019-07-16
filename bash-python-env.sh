@@ -26,6 +26,11 @@ if [ -d $HOME/.pyenv ]; then
     fi
 fi
 
+# setup poetry
+if [ -d $HOME/.poetry ]; then
+    export PATH="$HOME/.poetry/bin:$PATH"
+fi
+
 # use python3 virtualenvwrapper by default
 # for py2 -> mkvirtualenv [-a `pwd`] -p /usr/bin/python2 vname
 # https://stackoverflow.com/a/33239250/1869821
