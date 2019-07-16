@@ -30,6 +30,7 @@
  'elpy
  'company-jedi
  'company-ansible
+ 'toml-mode
  )
 
 (add-hook 'after-init-hook 'global-company-mode)
@@ -79,12 +80,11 @@
  ;; If there is more than one, they won't work right.
  '(line-number-mode t)
  '(load-home-init-file t t)
- ;;'(x-select-enable-clipboard-manager nil)
- '(select-enable-clipboard nil)
- '(select-enable-primary t)
  '(mouse-drag-copy-region t)
  '(package-selected-packages (quote (imenu-anywhere)))
  '(python-mode-hook (quote (imenu-add-menubar-index)) t)
+ '(select-enable-clipboard nil)
+ '(select-enable-primary t)
  '(show-paren-style (quote expression)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -173,6 +173,9 @@
 (add-to-list 'auto-mode-alist '("\\.j2\\'" . jinja2-mode))
 (add-to-list 'auto-mode-alist '("\\.jinja\\'" . jinja2-mode))
 
+(require 'nijinja2-mode)
+(add-to-list 'auto-mode-alist '("\\.nijinja\\'" . nijinja2-mode))
+
 (require 'nginx-mode)
 
 ;;(require 'magit)
@@ -200,10 +203,13 @@
 (require 'csharp-mode)
 (add-to-list 'auto-mode-alist '("\\.cs\\'" . csharp-mode))
 
-;(require 'php-mode)
-;(add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
-;(eval-after-load 'php-mode
-;  '(require 'php-ext))
+(require 'dockerfile-mode)
+(add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
+
+;;(require 'php-mode)
+;;(add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
+;;(eval-after-load 'php-mode
+;;  '(require 'php-ext))
 
 ;; https://github.com/broccolijs/broccoli/issues/233#issuecomment-166018886
 ;; this helps with: https://github.com/webpack/webpack/issues/2156
@@ -212,6 +218,9 @@
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
 (setq create-lockfiles nil)
+
+;;(setq spacemacs-start-directory "~/workspace/others/spacemacs/")
+;;(load-file (concat spacemacs-start-directory "init.el"))
 
 (provide 'emacs)
 ;;; emacs ends here
