@@ -185,8 +185,12 @@ else
     echo "WARNING /usr/local/bin/editor not found"
 fi
 
+
 # for xscreensaver -window-id $DESKTOPWINID
-export DESKTOPWINID=$(xwininfo -name "Desktop" | grep 'Window id' | sed 's/.*\(0x[0-9a-z]*\).*/\1/g')
+if ! [ -z ${DISPLAY+x} ]; then
+    export DESKTOPWINID=$(xwininfo -name "Desktop" | grep 'Window id' | sed 's/.*\(0x[0-9a-z]*\).*/\1/g')
+fi
+
 
 # debian exports
 export DEBEMAIL="joseph.rawson.works@gmail.com"
