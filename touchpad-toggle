@@ -32,6 +32,7 @@ def toggle_touchpadoff_value(tpoff):
     return new_setting
 
 
+# the icons can be found in the kde-runtime-data package
 def toggle_touchpad():
     settings = list_settings()
     new_setting = toggle_touchpadoff_value(get_touchpad_off(settings))
