@@ -22,6 +22,11 @@ fresh jasoncodes/dotfiles bin/gemdiff --bin=$bdir/gem-diff
 #fresh seebi/dircolors-solarized dircolors.ansi-light --file=~/.dircolors
 fresh dircolors --file
 
+# dark theme for jupyter
+fresh powerpak/jupyter-dark-theme custom.css --file=~/.jupyter/custom.css
+
+
+
 if [[ "$(hostname -s)" == "tron" ]]; then
     fresh emacs.bard --file=~/.emacs
 elif [[ "$(hostname -s)" == "bard" ]]; then
@@ -158,6 +163,10 @@ fresh quiltrc-dpkg --file
 fresh sbuildrc --file
 fresh xsessionrc --file
 fresh xxdiffrc --file
+
+if ! [ -r ~/.config/git/gitk ]; then
+    fresh gitk --file=~/.config/git/gitk
+fi
 
 for binfile in `ls ~/.dotfiles/bin | grep -v ~$` ; do
     fresh bin/$binfile --bin=~/.local/bin/$binfile
