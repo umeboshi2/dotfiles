@@ -49,14 +49,15 @@ lcd           1               # 0=grayscale 1=subpixel
 # The 'standard' fonts.
 # Omit to use the builtin fonts, or specify a font family.
 
-monofont      Liberation Mono
-monosize      12.5
+#monofont      Liberation Mono
+monosize      22
 
 #propfont      Linux Libertine O
 #propsize      15.5
-propfont       DejaVu Sans Mono
-propsize       18
-
+#propfont       DejaVu Sans Mono
+propfont	Noto Sans
+#propsize       26
+propsize	33
 wmarginx      20              # space around the window frame
 wmarginy      20
 wpaddingx     0               # space between windows
@@ -66,7 +67,8 @@ wbordery      0
 tmarginx      7               # internal margin of text windows
 tmarginy      7
 
-leading       20              # Also known as linespacing
+#leading       20              # Also known as linespacing
+leading       35              # Also known as linespacing
 baseline      15              # Offset from top of line to baseline
 
 # Fonts for Text Buffer windows
@@ -126,17 +128,20 @@ windowcolor   000000          # overall window background color
 bordercolor   000000          # border line color
 caretcolor    007000          # input caret color
 linkcolor     000060          # hyperlink color
-morecolor     006000          # more prompt color
+morecolor     a040a0          # more prompt color
 
 # Colors for text buffer windows
 #tcolor  0     00ff00  000000  # Normal
 tcolor  0     ffdd22  000000  # Normal
-tcolor  1     ff0000  000000  # Emphasized
+#tcolor  1     ff3333  000000  # Emphasized
+tcolor  1     ffaaaa  000000  # Emphasized
 tcolor  2     00eebb  000000  # Preformatted
 tcolor  3     ffff00  000000  # Header
 tcolor  4     ffff00  000000  # Subheader
-tcolor  5     000000  ffffff  # Alert
-tcolor  6     333333  ffffff  # Note
+#tcolor  5     000000  ffffff  # Alert
+#tcolor  6     333333  ffffff  # Note
+tcolor  5     ffdd22  000000  # Alert
+tcolor  6     ffdd22  000000  # Note
 tcolor  7     333300  000000  # BlockQuote
 tcolor  8     00cc00  000000  # Input
 tcolor  9     000000  ffffff  # User1
@@ -144,10 +149,10 @@ tcolor 10     000000  ffffff  # User2
 
 # Colors for text grid windows
 gcolor  0     ffdd33  373737  # Normal
-gcolor  1     606060  ffffff  # Emphasized
-gcolor  2     606060  ffffff  # Preformatted
-gcolor  3     606060  ffffff  # Header
-gcolor  4     606060  ffffff  # Subheader
+gcolor  1     606060  111111  # Emphasized
+gcolor  2     ffdd33  222222  # Preformatted
+gcolor  3     606060  333333  # Header
+gcolor  4     606060  444444  # Subheader
 gcolor  5     606060  ffffff  # Alert
 gcolor  6     606060  ffffff  # Note
 gcolor  7     606060  ffffff  # BlockQuote
