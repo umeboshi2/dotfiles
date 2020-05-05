@@ -2,6 +2,10 @@
 from __future__ import absolute_import, division, print_function
 from __future__ import unicode_literals
 import os
+
+# There is no os.errno in python3.7
+import errno
+
 # import sys
 import subprocess
 # import tarfile
@@ -126,7 +130,7 @@ if __name__ == '__main__':
         pass
     except OSError as e:
         print(e)
-        if e.errno != os.errno.ENOENT:
+        if e.errno != errno.ENOENT:
             raise e
     if not npm_installed:
         install_nodeenv()
