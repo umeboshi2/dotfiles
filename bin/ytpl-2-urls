@@ -1,0 +1,26 @@
+#!/usr/bin/env python3
+import sys
+import subprocess
+
+
+playlist_url = sys.argv[1]
+ 
+urltemplate = "https://youtube.com/watch?v={}"
+
+cmd = ['youtube-dl', playlist_url, '--get-id']
+
+#subprocess.run(cmd, stdout=sys.stdout)
+with subprocess.Popen(cmd, stdout=subprocess.PIPE, bufsize=1,
+                      universal_newlines=True) as proc:
+    for line in proc.stdout:
+        yline = urltemplate.format(line.strip())
+        sys.stdout.write('{}\n'.format(yline))
+        
+#out, err = proc.communicate()
+
+#for line in open(filename):
+#    line = line.strip()
+#    url = urltemplate.format(line)
+#    cmd = ['git-annex', 'addurl', url]
+#    subprocess.run(cmd)
+    
