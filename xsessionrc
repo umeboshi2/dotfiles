@@ -1,2 +1,4 @@
+
 export SDL_MOUSE_RELATIVE=0
+export QT_QPA_PLATFORMTHEME="qt5ct"
 
