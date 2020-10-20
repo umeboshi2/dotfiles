@@ -61,7 +61,8 @@ propsize	33
 wmarginx      20              # space around the window frame
 wmarginy      20
 wpaddingx     0               # space between windows
-wpaddingy     0
+#wpaddingy     0
+wpaddingy     20
 wborderx      0               # border line width between windows
 wbordery      0
 tmarginx      7               # internal margin of text windows
@@ -69,7 +70,7 @@ tmarginy      7
 
 #leading       20              # Also known as linespacing
 leading       35              # Also known as linespacing
-baseline      15              # Offset from top of line to baseline
+baseline      20              # Offset from top of line to baseline
 
 # Fonts for Text Buffer windows
 tfont  0      propr           # Normal
