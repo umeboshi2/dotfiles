@@ -160,6 +160,14 @@ for foo in /proc/*/fd/*; do readlink -f $foo; done | grep inotify | sort | uniq 
 import code ;code.interact(local=dict(globals(), **locals()))
 
 
+# query replace multifile emacs
+
+- https://stackoverflow.com/a/271136/1869821
+
+- http://ergoemacs.org/emacs/find_replace_inter.html
+
 lorentz contraction
 
 https://www.facebook.com/umeboshi3/posts/1378958012219967
+
+
