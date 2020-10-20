@@ -200,6 +200,9 @@ export DEBFULLNAME="Joseph Rawson"
 # disable checking for box updates
 export VAGRANT_BOX_UPDATE_CHECK_DISABLE=1
 
+# misc exports
+export QT_QPA_PLATFORMTHEME="qt5ct"
+
 if [ -r /etc/redhat-release ]; then
     echo "redhat system, using most for PAGER"
     if ! [ -x /usr/local/bin/most ]; then
