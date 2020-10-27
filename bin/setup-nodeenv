@@ -23,8 +23,8 @@ DOTFILES_DATA = os.path.join(LOCAL_DATA_PATH, 'dotfiles')
 # NODE_VERSION_URL = 'https://semver.io/node/resolve/8'
 # _Failsafe_NODE_VERSION = '8.11.3'
 
-NODE_VERSION_URL = 'https://semver.io/node/resolve/10'
-_Failsafe_NODE_VERSION = '10.14.1'
+NODE_VERSION_URL = 'https://semver.io/node/resolve/12'
+_Failsafe_NODE_VERSION = '12.19.0'
 
 node_packaging = [
     'npm-check-updates',
