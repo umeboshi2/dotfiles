@@ -129,8 +129,8 @@ fresh $goodies emacs.d/site-start.d --file=~/.emacs.d/site-start.d/
 fresh $goodies emacs.d/site-lisp --file=~/.emacs.d/site-lisp/
 
 
-mode=php-mode
-fresh ejmr/$mode $mode.el --file=$elpackage_path/$mode.el
+#mode=php-mode
+#fresh ejmr/$mode $mode.el --file=$elpackage_path/$mode.el
 #fresh ejmr/$mode skeleton/php-ext.el --file=$elpackage_path/php-ext.el
 
 
