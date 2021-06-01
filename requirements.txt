@@ -1,4 +1,4 @@
-ansible==2.10.1
+ansible==2.10.7
 autopep8==1.5.4
 beautifulsoup4==4.9.3
 better-exceptions==0.2.2
