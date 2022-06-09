@@ -3,7 +3,7 @@ autopep8==1.5.4
 beautifulsoup4==4.9.3
 better-exceptions==0.2.2
 bpython==0.20
-cookiecutter==1.7.2
+cookiecutter==2.1.1
 flake8==3.8.4
 GitPython==3.1.11
 httpie==2.3.0
