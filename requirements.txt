@@ -22,6 +22,6 @@ repoze.lru==0.7
 rope==0.16.0
 simplegeneric==0.8.1
 virtualenvwrapper==4.8.4
-wheel==0.35.1
+wheel==0.38.1
 yapf==0.30.0
 youtube-dl==2020.9.20
